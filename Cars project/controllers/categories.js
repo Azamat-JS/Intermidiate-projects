@@ -6,13 +6,13 @@ const getAllCategories = async (req, res) => {
 };
 
 const getOneCategory = async(req, res) => {
-  const {name} = req.params
-  const category = await Category.findByFullName(name)
+  const {brand} = req.params
+  const category = await Category.findByFullName(brand)
   res.status(200).json(category)
 }
 
 const addCategory = async (req, res) => {
-  const category = await Category.create({ ...req.body });
+  const category = await Category.create();
   res.status(201).json({
     msg: "category added successfully",
     category});
@@ -30,7 +30,7 @@ const updateCategory = async (req, res) => {
 
 const deleteCategory = async (req, res) => {
   const {id} = req.params
-  const category = await Category.findByIdAndDelete({_id: id})
+    await Category.findByIdAndDelete({_id: id})
   res.status(200).json({msg:"deleted successfully"})
 }
 

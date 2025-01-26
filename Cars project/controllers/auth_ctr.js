@@ -96,7 +96,7 @@ const login = async (req, res, next) => {
     }
     const isPasswordMatch = await bcrypt.compare(password, user.password);
 
-    let payload = { email: user.email, id: user._id, role: user.role };
+    let payload = { email: user.email, id: user._id, username: user.username };
     let generatetoken = createToken(payload)
     let refreshtoken = refreshToken(payload)
     

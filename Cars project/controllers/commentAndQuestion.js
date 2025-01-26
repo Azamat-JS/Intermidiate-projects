@@ -18,10 +18,12 @@ const getAllComments = async(req, res) => {
 }
 
 const createComment = async (req, res) => {
-    const comment = await Comment.create({ ...req.body });
+    req.body.leftBy = req.user.userId;
+    const comment = await Comment.create(req.body);
     res.status(201).json({
         msg: "comment added successfully",
         comment});
 };
 
-module.exports = {createComment, getAllComments, getAllQuestions}
+
+module.exports = {createComment, getAllComments, getAllQuestions, writeQuestion}

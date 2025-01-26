@@ -8,7 +8,8 @@ const connectDB = require("./db/connect");
 const carRouter = require("./routes/car_rt");
 const categoryRouter = require("./routes/category_rt");
 const authRouter = require("./routes/auth_rt");
-const commentsRouter = require("./routes/comments");
+const commentsRouter = require("./routes/comment_rt");
+const notificationRouter = require('./routes/notification_rt')
 const cookieParser = require('cookie-parser')
 
 const notFound = require("./middleware/not-found");
@@ -21,6 +22,7 @@ app.use(carRouter);
 app.use(categoryRouter);
 app.use(authRouter);
 app.use(commentsRouter);
+app.use(notificationRouter);
 
 app.use(notFound);
 app.use(errorHandlerMiddleware);
