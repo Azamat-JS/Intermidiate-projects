@@ -5,9 +5,6 @@ const carSchema = new mongoose.Schema(
     model: {
       type: String,
       required: [true, "Please provide model of a car"],
-      enum: {
-        values: ["CHEVROLET", "LAMBORGHINI", "LADA", "FERRARI"],
-      },
     },
     price: {
       type: Number,
@@ -29,13 +26,22 @@ const carSchema = new mongoose.Schema(
       type: Number,
       required: [true, "Please provide distance"],
     },
-    gearbook: {
-      type: String,
-      required: [true, "Gearbook must be provided"],
-    },
     description: {
       type: String,
       maxlength: [100, "You can write at most 100 characters"],
+    },
+    tinting:{
+      type:String,
+      required: [true, 'Please provide info on tinting'],
+      enum:{
+        values: ["yes", "no"],
+        message: '{VALUE} is not supported'
+      }
+    },
+    category:{
+      type:mongoose.Types.ObjectId,
+      required: [true, 'Category must be provided'],
+      ref: "Category"
     },
     inner_photo: {
       type: String,

@@ -11,9 +11,10 @@ exports.carValidator = (data) => {
       .min(new Date().getFullYear() - 50),
 
     distance: Joi.number().min(0),
-    gearBook: Joi.string().required(),
+    tinting: Joi.string().required(),
     color: Joi.string().required(),
     description: Joi.string().required(),
+    category: Joi.string().required()
   });
   return schema.validate(data);
 };

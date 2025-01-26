@@ -1,4 +1,4 @@
-const {carValidator} = require('../validator/bookValidator')
+const {carValidator} = require('../validator/carsValidator')
 const CustomAPIError = require('./custom-api')
 
 module.exports.carValidate = (req, res, next) => {

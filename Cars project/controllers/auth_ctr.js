@@ -49,7 +49,7 @@ const register = async (req, res, next) => {
       username,
       email,
       password: hashedPassword,
-      verfication_code: generatePassword,
+      verfication_code: +generatePassword,
       role
     });
 
@@ -102,7 +102,6 @@ const login = async (req, res, next) => {
     
     res.cookie("generatetoken", generatetoken, {httpOnly:true, maxAge: 900 * 1000})
     res.cookie("refreshToken", refreshtoken, {httpOnly:true, maxAge: 3600 * 1000 * 24 * 15})
-    
     
     if (isPasswordMatch && user.isVerify) {
     return  res.status(200).json({ msg: "User logged in successfully", generatetoken });

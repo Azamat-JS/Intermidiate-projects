@@ -29,7 +29,7 @@ const getAllCars = async (req, res) => {
     });
   }
 
-  let result = Car.find(queryObject).populate("author_info", "model")
+  let result = Car.find(queryObject).populate("category", "brand")
   if (sort) {
     const sortList = sort.split(",").join(" ");
     result = result.sort(sortList);
@@ -50,13 +50,12 @@ const getAllCars = async (req, res) => {
 
 const getSingleCar = async(req, res) => {
   const {id:carId} = req.params
-  const comment = await Comment.find({car:carId})
-  const car = await Car.findOne({_id:carId}).populate("author_info", "model")
+  const car = await Car.findOne({_id:carId}).populate("category", "brand")
   res.status(200).json({message: "Car found", car})
 }
 
 const addCar = async(req, res) =>{
-  const car = await Car.create({...req.body})
+  const car = await Car.create(req.body)
   res.status(201).json({
     msg: "Car added successfully",
     car})
@@ -74,7 +73,7 @@ const updateCar = async(req, res) => {
 
 const deleteCar = async(req, res) => {
   const {id} = req.params
-  const car = await Car.findByIdAndDelete(id)
+  await Car.findByIdAndDelete(id)
   res.status(200).send('Car deleted successfully')
 }
 
