@@ -5,8 +5,8 @@ const express = require("express");
 const app = express();
 
 const connectDB = require("./db/connect");
-const booksRouter = require("./routes/books_rt");
-const authorRouter = require("./routes/authors_rt");
+const carRouter = require("./routes/car_rt");
+const categoryRouter = require("./routes/category_rt");
 const authRouter = require("./routes/auth_rt");
 const commentsRouter = require("./routes/comments");
 const cookieParser = require('cookie-parser')
@@ -17,8 +17,8 @@ const errorHandlerMiddleware = require("./middleware/error-handler");
 app.use(express.json());
 app.use(cookieParser())
 
-app.use(booksRouter);
-app.use(authorRouter);
+app.use(carRouter);
+app.use(categoryRouter);
 app.use(authRouter);
 app.use(commentsRouter);
 

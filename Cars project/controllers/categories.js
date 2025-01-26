@@ -1,42 +1,42 @@
-const Author = require("../models/author");
+const Category = require("../models/Category");
 
 const getAllCategories = async (req, res) => {
-  const authors = await Author.find();
-  res.status(200).json(authors);
+  const categories = await Category.find();
+  res.status(200).json(categories);
 };
 
 const getOneCategory = async(req, res) => {
   const {name} = req.params
-  const author = await Author.findByFullName(name)
-  res.status(200).json(author)
+  const category = await Category.findByFullName(name)
+  res.status(200).json(category)
 }
 
 const addCategory = async (req, res) => {
-  const author = await Author.create({ ...req.body });
+  const category = await Category.create({ ...req.body });
   res.status(201).json({
-    msg: "author added successfully",
-    author});
+    msg: "category added successfully",
+    category});
 };
 
 const updateCategory = async (req, res) => {
   const {id} = req.params
-  const author = await Author.findByIdAndUpdate({_id: id}, req.body,
+  const category = await Category.findByIdAndUpdate({_id: id}, req.body,
     {new:true, runValidators:true}
   )
   res.status(200).json({
-    msg: "author updated successfully",
-    author})
+    msg: "category updated successfully",
+    category})
 }
 
 const deleteCategory = async (req, res) => {
   const {id} = req.params
-  const author = await Author.findByIdAndDelete({_id: id})
+  const category = await Category.findByIdAndDelete({_id: id})
   res.status(200).json({msg:"deleted successfully"})
 }
 
 const search = async (req, res) => {
   const { name } = req.query;
-  const searchedValue = await Author.find({
+  const searchedValue = await Category.find({
     name: { $regex: name, $options: "i" },
   });
   res.status(200).json(searchedValue)

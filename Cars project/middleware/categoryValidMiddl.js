@@ -1,9 +1,9 @@
-const {authorValidator} = require('../validator/authorValidator')
+const  {categoryValidator}  = require('../validator/categoryValidator')
 const CustomAPIError = require('./custom-api')
 
-module.exports.authorValidate = (req, res, next) => {
+module.exports.categoryValidate = (req, res, next) => {
 try{
-    const {error} = authorValidator(req.body)
+    const {error} = categoryValidator(req.body)
 if(error){
     return res.status(400).json({msg: error.details[0].message})
 }

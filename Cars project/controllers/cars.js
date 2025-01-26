@@ -20,7 +20,7 @@ const getAllCars = async (req, res) => {
       regEx,
       (match) => `-${operatorMap[match]}-`
     );
-    const options = ["price", "rating"];
+    const options = ["price", "year", "engine"];
     filters = filters.split(",").forEach((item) => {
       const [field, key, value] = item.split("-");
       if (options.includes(field)) {
@@ -55,7 +55,7 @@ const getSingleCar = async(req, res) => {
   res.status(200).json({message: "Car found", car})
 }
 
-const createCar = async(req, res) =>{
+const addCar = async(req, res) =>{
   const car = await Car.create({...req.body})
   res.status(201).json({
     msg: "Car added successfully",
@@ -82,7 +82,7 @@ const deleteCar = async(req, res) => {
 module.exports = {
   getAllCars,
   getSingleCar,
-  createCar,
+  addCar,
   updateCar,
   deleteCar
 };

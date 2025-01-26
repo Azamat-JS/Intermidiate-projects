@@ -1,9 +1,9 @@
-const {bookValidator} = require('../validator/bookValidator')
+const {carValidator} = require('../validator/bookValidator')
 const CustomAPIError = require('./custom-api')
 
-module.exports.bookValidate = (req, res, next) => {
+module.exports.carValidate = (req, res, next) => {
 try{
-    const {error} = bookValidator(req.body)
+    const {error} = carValidator(req.body)
 if(error){
     return res.status(400).json({msg: error.details[0].message})
 }
