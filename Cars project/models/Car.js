@@ -39,7 +39,7 @@ const carSchema = new mongoose.Schema(
       }
     },
     category:{
-      type:mongoose.Types.ObjectId,
+      type:mongoose.Schema.Types.ObjectId,
       required: [true, 'Category must be provided'],
       ref: "Category"
     },

@@ -8,7 +8,7 @@ const questionSchema = new mongoose.Schema({
         max: [500, "Question length must be at most 500 characters"],
     },
     givenBy:{
-        type:mongoose.Types.ObjectId,
+        type:mongoose.Schema.Types.ObjectId,
         ref: "Auth",
         required:[true, 'User must be provided']
     }

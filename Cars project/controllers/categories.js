@@ -1,4 +1,6 @@
 const Category = require("../models/Category");
+const Car = require('../models/Car')
+const BaseError = require('../errors/base_error')
 
 const getAllCategories = async (req, res) => {
   const categories = await Category.find();
@@ -7,12 +9,16 @@ const getAllCategories = async (req, res) => {
 
 const getOneCategory = async(req, res) => {
   const {brand} = req.params
-  const category = await Category.findByFullName(brand)
-  res.status(200).json(category)
+  const category = await Category.findOne({brand: {$regex:brand, $options: 'i'}})
+  if(!category){
+    return BaseError.NotFoundError('Such brand not found')
+  }
+  const cars = await Car.find({category:category._id})
+  res.status(200).json(cars)
 }
 
 const addCategory = async (req, res) => {
-  const category = await Category.create();
+  const category = await Category.create(req.body);
   res.status(201).json({
     msg: "category added successfully",
     category});
@@ -35,9 +41,9 @@ const deleteCategory = async (req, res) => {
 }
 
 const search = async (req, res) => {
-  const { name } = req.query;
+  const { brand } = req.query;
   const searchedValue = await Category.find({
-    name: { $regex: name, $options: "i" },
+    brand: { $regex: brand, $options: "i" },
   });
   res.status(200).json(searchedValue)
 };

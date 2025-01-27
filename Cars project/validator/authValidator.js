@@ -13,7 +13,7 @@ const authValidator = (data) => {
 const verifyValidator = (data) => {
     const schema = joi.object({
         email: joi.string().email().required(),
-        code: joi.string().min(6).max(6).required()
+        code: joi.number().required()
     })
     return schema.validate(data)
 }
@@ -21,7 +21,7 @@ const verifyValidator = (data) => {
 const loginValidator = (data) => {
     const schema = joi.object({
         email: joi.string().email().required(),
-        password: joi.string().min(6).required()
+        password: joi.string().min(5).required()
     })
     return schema.validate(data)
 }

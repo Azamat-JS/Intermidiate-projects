@@ -8,7 +8,7 @@ const commentSchema = new mongoose.Schema({
         max: [550, "Comment must be at most 550 characters"],
     },
     leftBy: {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Auth",
         required: [true, "User must be provided"]
     }

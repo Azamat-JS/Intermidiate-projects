@@ -16,9 +16,9 @@ const refresh = (req, res, next) => {
       }
     
       let payload = { email: decode.email, id: decode._id, role: decode.role };
-      let generatetoken = createToken(payload);
+      let createtoken = createToken(payload);
     
-      res.cookie("generatetoken", generatetoken, {
+      res.cookie("createtoken", createtoken, {
         httpOnly: true,
         maxAge: 900 * 1000,
       });

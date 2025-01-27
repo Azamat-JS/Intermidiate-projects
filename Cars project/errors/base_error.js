@@ -10,4 +10,7 @@ module.exports = class BaseError extends Error {
     static BadRequestError(message, errors = []) {
         return new BaseError(400, message, errors);
     }
+    static NotFoundError(message, errors = []) {
+        return new BaseError(404, message, errors);
+    }
 }

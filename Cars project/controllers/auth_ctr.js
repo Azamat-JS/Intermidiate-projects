@@ -59,7 +59,7 @@ const register = async (req, res, next) => {
       });
     }, 120 * 1000);
 
-    res.status(201).json({ msg: "User created successfully", newUser });
+    res.status(201).send('Verification code will be sent to this email');
   } catch (error) {
     next(error);
   }
@@ -96,15 +96,15 @@ const login = async (req, res, next) => {
     }
     const isPasswordMatch = await bcrypt.compare(password, user.password);
 
-    let payload = { email: user.email, id: user._id, username: user.username };
-    let generatetoken = createToken(payload)
+    let payload = { email: user.email, id: user._id, role: user.role };
+    let createtoken = createToken(payload)
     let refreshtoken = refreshToken(payload)
     
-    res.cookie("generatetoken", generatetoken, {httpOnly:true, maxAge: 900 * 1000})
+    res.cookie("createtoken", createtoken, {httpOnly:true, maxAge: 900 * 1000})
     res.cookie("refreshToken", refreshtoken, {httpOnly:true, maxAge: 3600 * 1000 * 24 * 15})
     
     if (isPasswordMatch && user.isVerify) {
-    return  res.status(200).json({ msg: "User logged in successfully", generatetoken });
+    return  res.status(200).json({ msg: "User logged in successfully", createtoken });
     }else{
      return res.status(200).json({ msg: "User not verified or password is wrong" });
     }
@@ -115,7 +115,7 @@ const login = async (req, res, next) => {
 
 const logOut = (req, res, next) => {
   try {
-    res.clearCookie("generatetoken", {httpOnly: true})
+    res.clearCookie("createtoken", {httpOnly: true})
     res.clearCookie("refreshToken", {httpOnly:true})
 
     res.status(200).json({msg: "User logged out successfully"})
