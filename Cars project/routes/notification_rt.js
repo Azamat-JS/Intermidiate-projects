@@ -6,8 +6,8 @@ const {getAllNotifications, getOneNotification, addNotification, updateNotificat
 router.get('/notifications', tokenChecker, getAllNotifications)
 router.get('/notifications/:id', tokenChecker, getOneNotification)
 router.post('/create_notification', checkAdminToken, addNotification)
-router.put('/update_notification', checkAdminToken, updateNotification)
-router.delete('/delete_notification', checkAdminToken, deleteNotification)
+router.put('/notifications/:id', checkAdminToken, updateNotification)
+router.delete('/notifications/:id', checkAdminToken, deleteNotification)
 
 
 module.exports = router

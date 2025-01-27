@@ -42,7 +42,9 @@ const deleteCategory = async (req, res) => {
 
 const search = async (req, res) => {
   const { brand } = req.query;
-  const searchedValue = await Category.find({
+  console.log(brand);
+  
+  const searchedValue = await Category.findOne({
     brand: { $regex: brand, $options: "i" },
   });
   res.status(200).json(searchedValue)

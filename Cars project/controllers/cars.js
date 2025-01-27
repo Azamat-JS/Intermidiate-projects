@@ -1,3 +1,4 @@
+const BaseError = require("../errors/base_error");
 const Car = require("../models/Car");
 
 const getAllCars = async (req, res) => {
@@ -41,7 +42,7 @@ const getAllCars = async (req, res) => {
     result = result.select(fieldsList)
   }
   const page = Number(req.query.page) || 1
-  const limit = Number(req.query.limit) || 6
+  const limit = Number(req.query.limit) || 5
   const skip = (page - 1) * limit
   result = result.skip(skip).limit(limit)
   const cars = await result;
@@ -50,7 +51,7 @@ const getAllCars = async (req, res) => {
 
 const getSingleCar = async(req, res) => {
   const {id:carId} = req.params
-  const car = await Car.findOne({_id:carId}).populate("category", "brand")
+  const car = await Car.findOne({_id:carId}).populate("category", "-_id, brand")
   res.status(200).json({message: "Car found", car})
 }
 
@@ -66,9 +67,12 @@ const updateCar = async(req, res) => {
   const car = await Car.findByIdAndUpdate({_id:id}, req.body,
     {new:true, runValidators:true}
   )
+  if(!car){
+    throw BaseError.NotFoundError('There is no car with id:' + id)
+  }
   res.status(201).json({
     msg: "Car updated successfully",
-    car})
+    car: car})
 }
 
 const deleteCar = async(req, res) => {
