@@ -44,13 +44,16 @@ const carSchema = new mongoose.Schema(
       ref: "Category"
     },
     inner_photo: {
-      type: String,
+      data: Buffer,
+      contentType: String
     },
     external_photo: {
-      type: String,
+      data: Buffer,
+      contentType: String
     },
     model_photo: {
-      type: String,
+      data: Buffer,
+      contentType: String
     },
   },
   {
