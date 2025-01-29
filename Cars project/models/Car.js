@@ -30,31 +30,21 @@ const carSchema = new mongoose.Schema(
       type: String,
       maxlength: [100, "You can write at most 100 characters"],
     },
-    tinting:{
-      type:String,
-      required: [true, 'Please provide info on tinting'],
-      enum:{
+    tinting: {
+      type: String,
+      required: [true, "Please provide info on tinting"],
+      enum: {
         values: ["yes", "no"],
-        message: '{VALUE} is not supported'
-      }
+        message: "{VALUE} is not supported",
+      },
     },
-    category:{
-      type:mongoose.Schema.Types.ObjectId,
-      required: [true, 'Category must be provided'],
-      ref: "Category"
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: [true, "Category must be provided"],
+      ref: "Category",
     },
-    inner_photo: {
-      data: Buffer,
-      contentType: String
-    },
-    external_photo: {
-      data: Buffer,
-      contentType: String
-    },
-    model_photo: {
-      data: Buffer,
-      contentType: String
-    },
+    images:[String]
+
   },
   {
     versionKey: false,

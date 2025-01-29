@@ -17,6 +17,7 @@ const errorHandlerMiddleware = require("./middleware/error-handler");
 
 app.use(express.json());
 app.use(cookieParser())
+app.use(express.static('upload'))
 
 app.use(carRouter);
 app.use(categoryRouter);
