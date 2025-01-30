@@ -1,0 +1,45 @@
+require('dotenv').config();
+require('express-async-errors');
+const cors = require('cors');
+const express = require('express');
+const fileUpload = require('express-fileupload');
+
+const app = express();
+
+const connectDB = require('./db/connect');
+const groupRouter = require('./routes/group_rt');
+const studentRouter = require('./routes/student_rt');
+const mainRouter = require('./routes/main_rt');
+const teacherRouter = require('./routes/teacher_rt');
+const paymentRouter = require('./routes/payment_rt');
+
+// Middleware
+app.use(express.json()); // Body parser should be at the top
+app.use(cors());
+app.use(fileUpload({}));
+const notFoundMiddleware = require('./middleware/not-found');
+const errorHandlerMiddleware = require('./middleware/error-handler');
+
+// Routes
+app.use(groupRouter);
+app.use(studentRouter);
+app.use(mainRouter);
+app.use(teacherRouter);
+app.use(paymentRouter);
+
+// Error Handling Middleware
+app.use(notFoundMiddleware);
+app.use(errorHandlerMiddleware);
+
+const port = process.env.PORT || 4000;
+
+const start = async () => {
+  try {
+    await connectDB(process.env.MONGO_URI);
+    app.listen(port, console.log('server is running on ' + port));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+start();
