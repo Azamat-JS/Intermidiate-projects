@@ -44,7 +44,6 @@ const carSchema = new mongoose.Schema(
       ref: "Category",
     },
     images:[String]
-
   },
   {
     versionKey: false,
@@ -53,3 +52,5 @@ const carSchema = new mongoose.Schema(
 );
 
 module.exports = mongoose.model("Car", carSchema);
+
+

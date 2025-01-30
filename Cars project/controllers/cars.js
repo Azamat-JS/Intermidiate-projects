@@ -100,7 +100,6 @@ const addCar = async (req, res) => {
 
 
 
-
 const updateCar = async (req, res) => {
   const { id } = req.params;
   const car = await Car.findByIdAndUpdate({ _id: id }, req.body, {

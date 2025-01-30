@@ -1,5 +1,4 @@
 const BaseError = require('../errors/base_error');
-const notification = require('../models/notification');
 const Notification = require('../models/notification')
 
 const getAllNotifications = async (req, res) => {
@@ -9,8 +8,8 @@ const getAllNotifications = async (req, res) => {
 
 const getOneNotification = async(req, res) => {
   const {id} = req.params
-  const notification1 = await Notification.findById(id)
-  res.status(200).json(notification1)
+  const notification = await Notification.findById(id)
+  res.status(200).json(notification)
 }
 
 const addNotification = async (req, res) => {
@@ -22,7 +21,6 @@ const addNotification = async (req, res) => {
 
 const updateNotification = async (req, res) => {
   const {params:{id: notificationId}, body: {notification}} = req;
-  console.log(notification);
   
   if(!notificationId || !notification){
     throw BaseError.BadRequestError('Please provide id or notification field')
