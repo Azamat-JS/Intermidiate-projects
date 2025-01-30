@@ -1,0 +1,4 @@
+
+[2025-01-25T16:26:20.009Z] (info): A student tried to log in
+[2025-01-25T16:26:20.014Z] (warn): logger warn
+[2025-01-25T16:26:20.015Z] (error): logger error
