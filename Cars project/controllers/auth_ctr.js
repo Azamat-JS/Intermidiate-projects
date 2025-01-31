@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const BaseError = require("../errors/base_error");
 const nodemailer = require("nodemailer");
 const {createToken, refreshToken} = require('../token/generate_token')
+const mongoLog = require('../service/mongoLogger')
 
 const register = async (req, res, next) => {
   try {

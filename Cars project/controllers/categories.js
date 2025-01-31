@@ -1,6 +1,7 @@
 const Category = require("../models/Category");
 const Car = require('../models/Car')
 const BaseError = require('../errors/base_error')
+const fileService = require('../service/fileService')
 
 const getAllCategories = async (req, res) => {
   const categories = await Category.find();
@@ -18,7 +19,12 @@ const getOneCategory = async(req, res) => {
 }
 
 const addCategory = async (req, res) => {
-  const category = await Category.create(req.body);
+  const {brand} = req.body
+  const image = req.files[0]
+  const category = await Category.craete({
+    brand,
+    image
+  })
   res.status(201).json({
     msg: "category added successfully",
     category});

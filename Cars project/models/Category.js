@@ -4,6 +4,9 @@ const categorySchema = new mongoose.Schema(
   {
     brand:{
    type:String,
+   },
+   image:{
+    type:String
    }
   },
   {

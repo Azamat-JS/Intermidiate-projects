@@ -1,13 +1,152 @@
-const {Router} = require('express')
-const router = Router()
-const {tokenChecker, checkAdminToken} = require('../middleware/checkToken')
-const {getAllNotifications, getOneNotification, addNotification, updateNotification, deleteNotification} = require('../controllers/notification_ctr')
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Notification:
+ *       type: object
+ *       required:
+ *         - notification
+ *       properties:
+ *         notification:
+ *           type: string
+ *           description: The notification message
+ *           example: "New car added to the inventory!"
+ */
 
-router.get('/notifications', tokenChecker, getAllNotifications)
-router.get('/notifications/:id', tokenChecker, getOneNotification)
-router.post('/create_notification', checkAdminToken, addNotification)
-router.put('/notifications/:id', checkAdminToken, updateNotification)
-router.delete('/notifications/:id', checkAdminToken, deleteNotification)
+const { Router } = require("express");
+const { tokenChecker, checkAdminToken } = require("../middleware/checkToken");
+const {
+  getAllNotifications,
+  getOneNotification,
+  addNotification,
+  updateNotification,
+  deleteNotification,
+} = require("../controllers/notification_ctr");
 
+const router = Router();
 
-module.exports = router
+/**
+ * @swagger
+ * /notifications:
+ *   get:
+ *     tags:
+ *       - Notifications
+ *     summary: Get all notifications
+ *     description: Retrieve all notifications in the system.
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of notifications
+ */
+
+/**
+ * @swagger
+ * /notifications/{id}:
+ *   get:
+ *     tags:
+ *       - Notifications
+ *     summary: Get a single notification
+ *     description: Retrieve a single notification by its ID.
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: ID of the notification
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Notification details
+ *       404:
+ *         description: Notification not found
+ */
+
+/**
+ * @swagger
+ * /create_notification:
+ *   post:
+ *     tags:
+ *       - Notifications
+ *     summary: Create a new notification
+ *     description: Admins can create a new notification.
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Notification'
+ *     responses:
+ *       201:
+ *         description: Notification created successfully
+ *       400:
+ *         description: Invalid input
+ */
+
+/**
+ * @swagger
+ * /notifications/{id}:
+ *   put:
+ *     tags:
+ *       - Notifications
+ *     summary: Update a notification
+ *     description: Admins can update an existing notification by ID.
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: ID of the notification to update
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Notification'
+ *     responses:
+ *       200:
+ *         description: Notification updated successfully
+ *       400:
+ *         description: Invalid input
+ *       404:
+ *         description: Notification not found
+ */
+
+/**
+ * @swagger
+ * /notifications/{id}:
+ *   delete:
+ *     tags:
+ *       - Notifications
+ *     summary: Delete a notification
+ *     description: Admins can delete a notification by ID.
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: ID of the notification to delete
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Notification deleted successfully
+ *       404:
+ *         description: Notification not found
+ */
+
+router.get("/notifications", tokenChecker, getAllNotifications);
+router.get("/notifications/:id", tokenChecker, getOneNotification);
+router.post("/create_notification", checkAdminToken, addNotification);
+router.put("/notifications/:id", checkAdminToken, updateNotification);
+router.delete("/notifications/:id", checkAdminToken, deleteNotification);
+
+module.exports = router;

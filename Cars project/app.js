@@ -12,12 +12,15 @@ const commentsRouter = require("./routes/comment_rt");
 const notificationRouter = require('./routes/notification_rt')
 const likeRouter = require('./routes/like_rt')
 const cookieParser = require('cookie-parser')
+const swaggerUi = require('swagger-ui-express')
+const swaggerDocs = require("./utils/swagger")
 
 const notFound = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
 
 app.use(express.json());
 app.use(cookieParser())
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use(express.static('upload'))
 
 app.use(carRouter);

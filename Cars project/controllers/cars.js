@@ -1,5 +1,6 @@
 const BaseError = require("../errors/base_error");
 const Car = require("../models/Car");
+const logger = require('../service/logger')
 
 const getAllCars = async (req, res) => {
   const { model, sort, numericFilters, fields } = req.query;
@@ -102,6 +103,7 @@ const addCar = async (req, res) => {
 
 const updateCar = async (req, res) => {
   const { id } = req.params;
+
   const car = await Car.findByIdAndUpdate({ _id: id }, req.body, {
     new: true,
     runValidators: true,
@@ -109,6 +111,9 @@ const updateCar = async (req, res) => {
   if (!car) {
     throw BaseError.NotFoundError("There is no car with id:" + id);
   }
+
+  logger.info('car updated')
+
   res.status(201).json({
     msg: "Car updated successfully",
     car: car,
@@ -118,6 +123,7 @@ const updateCar = async (req, res) => {
 const deleteCar = async (req, res) => {
   const { id } = req.params;
   await Car.findByIdAndDelete(id);
+  logger.info('car deleted')
   res.status(200).send("Car deleted successfully");
 };
 
