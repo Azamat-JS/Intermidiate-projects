@@ -1,4 +1,4 @@
-const Payment = require("../models/payments");
+const Payment = require("../models/Payments");
 const Student = require("../models/Student");
 const NotFoundError = require("../errors/not-found");
 const createPayment = async (req, res) => {

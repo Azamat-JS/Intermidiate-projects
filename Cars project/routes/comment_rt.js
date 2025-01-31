@@ -6,6 +6,6 @@ const {createComment, getAllComments} = require('../controllers/commentAndQuesti
 const {writeQuestion, getAllQuestions} = require('../controllers/commentAndQuestion')
 
 router.route('/comment').get(tokenChecker, getAllComments).post(tokenChecker, createComment)
-router.route('/questions').get(tokenChecker, getAllQuestions).post(tokenChecker, writeQuestion)
+router.route('/question').get(tokenChecker, getAllQuestions).post(tokenChecker, writeQuestion)
 
 module.exports = router

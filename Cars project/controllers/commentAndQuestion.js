@@ -2,7 +2,7 @@ const Comment = require('../models/comments');
 const Question = require('../models/questionSchema')
 
 const getAllQuestions = async(req, res) => {
-    const questions = await Question.find().sort('createdAt')
+    const questions = await Question.find().sort('createdAt').populate('givenBy', '-_id, username')
     res.status(200).json(questions)
 }
 
@@ -13,7 +13,7 @@ const writeQuestion = async(req, res) => {
 }
 
 const getAllComments = async(req, res) => {
-    const comments = await Comment.find().sort('createdAt')
+    const comments = await Comment.find().sort('createdAt').populate('leftBy', '-_id, username')
     res.status(200).json({comments: comments, number: comments.length})
 }
 

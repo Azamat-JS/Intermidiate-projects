@@ -90,7 +90,7 @@ const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await Auth.findOne({ email });
-
+    mongoLog.info(`A person whose email is ${email} tried to log in`)
     if (!user) {
       throw BaseError.BadRequestError("Invalid credentials");
     }
@@ -117,6 +117,7 @@ const logOut = (req, res, next) => {
   try {
     res.clearCookie("createtoken", {httpOnly: true})
     res.clearCookie("refreshToken", {httpOnly:true})
+    mongoLog.info(`A person whose email is ${email} logged out now`)
 
     res.status(200).json({msg: "User logged out successfully"})
   } catch (error) {
