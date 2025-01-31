@@ -60,7 +60,7 @@ const getSingleCar = async (req, res) => {
     throw BaseError.NotFoundError(`There is no car with id ${carId}`)
   }
 
-  res.status(200).json(carWithImages);
+  res.status(200).json(car);
 };
 
 const addCar = async (req, res) => {
