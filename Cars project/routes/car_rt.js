@@ -183,7 +183,7 @@ router.get("/get_one_car/:id", tokenChecker, getSingleCar);
  *                 type: array
  *                 items:
  *                   type: string
- *                 format: binary
+ *                   format: binary
  *     responses:
  *       201:
  *         description: Car added successfully
@@ -192,6 +192,7 @@ router.get("/get_one_car/:id", tokenChecker, getSingleCar);
  *       500:
  *         description: Internal Server Error
  */
+
 router.post("/add_car", [upload.array("images", 3), carValidate, checkAdminToken], addCar);
 
 /**

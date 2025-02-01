@@ -14,7 +14,8 @@ exports.carValidator = (data) => {
     tinting: Joi.string().required(),
     color: Joi.string().required(),
     description: Joi.string().required(),
-    category: Joi.string().required()
+    category: Joi.string().required(),
+    images: Joi.string()
   });
   return schema.validate(data);
 };

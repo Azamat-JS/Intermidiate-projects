@@ -72,6 +72,7 @@ router.get("/categories", tokenChecker, getAllCategories);
  */
 router.get("/categories/:brand", tokenChecker, getOneCategory);
 
+
 /**
  * @swagger
  * /category/search:

@@ -15,16 +15,16 @@ const writeQuestion = async(req, res) => {
 }
 
 const getAllAnswers = async(req, res) => {
-    const comments = await Answer.find().sort('createdAt').populate('answeredBy', '-_id, username')
-    res.status(200).json({comments: comments, number: comments.length})
+    const answers = await Answer.find().sort('createdAt').populate('answeredBy', '-_id, username')
+    res.status(200).json({answers: answers, number: answers.length})
 }
 
 const createAnswer = async (req, res) => {
     req.body.answeredBy = req.user.userId;
-    const comment = await Answer.create(req.body);
+    const answer = await Answer.create(req.body);
     res.status(201).json({
-        msg: "comment added successfully",
-        comment});
+        msg: "answer added successfully",
+        answer});
 };
 
 

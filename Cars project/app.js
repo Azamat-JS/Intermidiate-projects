@@ -1,5 +1,6 @@
 require("dotenv").config();
 require("express-async-errors");
+const fileUpload = require('express-fileupload')
 
 const express = require("express");
 const app = express();
@@ -8,7 +9,7 @@ const connectDB = require("./db/connect");
 const carRouter = require("./routes/car_rt");
 const categoryRouter = require("./routes/category_rt");
 const authRouter = require("./routes/auth_rt");
-const commentsRouter = require("./routes/comment_rt");
+const answerRouter = require("./routes/answer_rt");
 const notificationRouter = require('./routes/notification_rt')
 const likeRouter = require('./routes/like_rt')
 const cookieParser = require('cookie-parser')
@@ -20,13 +21,13 @@ const errorHandlerMiddleware = require("./middleware/error-handler");
 
 app.use(express.json());
 app.use(cookieParser())
+app.use(fileUpload({}))
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use(express.static('upload'))
-
 app.use(carRouter);
 app.use(categoryRouter);
 app.use(authRouter);
-app.use(commentsRouter);
+app.use(answerRouter);
 app.use(notificationRouter);
 app.use(likeRouter);
 

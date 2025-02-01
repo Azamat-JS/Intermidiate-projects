@@ -8,7 +8,7 @@ class FileService {
   try {
     const fileName = v4() + '.jpg'
     const currentDir = __dirname
-    const staticDir = path.join(currentDir, '..', 'static')
+    const staticDir = path.join(currentDir, '..', 'uploads')
     const filePath = path.join(staticDir, fileName)
 
     if(!fs.existsSync(staticDir)){
