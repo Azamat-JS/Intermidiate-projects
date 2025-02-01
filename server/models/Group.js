@@ -30,7 +30,7 @@ const GroupSchema = new mongoose.Schema(
     },
     phone_teacher: {
       type: String,
-      required: [true, "Please provide the phone number"],
+      required: [true, "Please provide a phone number"],
       validate: {
         validator: function (value) {
           return /^\+998\d{2} \d{3} \d{2} \d{2}$/.test(value);
@@ -38,7 +38,6 @@ const GroupSchema = new mongoose.Schema(
         // message: "Phone number is not valid"
         message: (props) => `${props.value} is not a valid phone number!`,
       },
-      required: [true, "Teacher phone number required"],
     },
   },
   { timestamps: true, versionKey: false }
