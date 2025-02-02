@@ -68,7 +68,7 @@ const updateStudent = async (req, res) => {
 
 const deleteStudent = async (req, res) => {
   const {id} = req.params
-  const student = await Student.findOneAndDelete(id)
+  const student = await Student.findByIdAndDelete(id)
   if(!student){
     return(404).send(`No Student with id: ${id}`)
   }

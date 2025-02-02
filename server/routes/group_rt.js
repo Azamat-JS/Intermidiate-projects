@@ -9,9 +9,9 @@ const {
 } = require("../controllers/groups");
 const {groupValidate} = require("../middleware/group_validMiddl");
 
-router.get("/guruhlar", getAllGroups)
-router.post("/guruhlar", createGroup)
-router.get("/guruhlar/:name", getGroupByName);
+router.get("/groups", getAllGroups)
+router.post("/groups", createGroup)
+router.get("/groups/:name", getGroupByName);
 router.put("/update_group/:id", updateGroup);
 router.delete("/delete_group/:id", deleteGroup);
 

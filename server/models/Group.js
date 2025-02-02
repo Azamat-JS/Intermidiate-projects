@@ -39,6 +39,10 @@ const GroupSchema = new mongoose.Schema(
         message: (props) => `${props.value} is not a valid phone number!`,
       },
     },
+    teacher_image:{
+      type:String,
+      default: "no-photo.jpg"
+    }
   },
   { timestamps: true, versionKey: false }
 );

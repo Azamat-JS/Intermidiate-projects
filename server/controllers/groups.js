@@ -4,7 +4,7 @@ const Teacher = require("../models/Teacher");
 const NotFoundError = require("../errors/not-found");
 const BadRequestError = require('../errors/bad-request')
 const {StatusCodes} = require('http-status-codes')
-// Create a new group
+const FileService = require('../upload/upload_file')
 
 const getAllGroups = async (req, res) => {
   const groups = await Group.find({})
@@ -19,12 +19,12 @@ const getAllGroups = async (req, res) => {
 const createGroup = async (req, res) => {
   try {
     const {subject, days, lesson_time, teacher_name, phone_teacher} = req.body;
-    const { image } = req.files;
+    const { teacher_image } = req.files;
 
-    if (!subject || !days || !lesson_time || !teacher_name || !phone_teacher || !image) {
-      throw new BadRequestError('Please provide all required data, including an image')
+    if (!subject || !days || !lesson_time || !teacher_name || !phone_teacher || !teacher_image) {
+      throw new BadRequestError('Please provide all required data, including an teacher_image')
     }
-    const fileName = FileService.save(image);
+    const fileName = FileService.save(teacher_image);
 
     const group = await Group.create({
       subject,
@@ -32,7 +32,7 @@ const createGroup = async (req, res) => {
       lesson_time,
       teacher_name,
       phone_teacher,
-      image: fileName,
+      teacher_image: fileName,
     });
 
     return res.status(201).json({
