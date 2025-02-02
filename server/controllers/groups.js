@@ -21,22 +21,18 @@ const createGroup = async (req, res) => {
     const {subject, days, lesson_time, teacher_name, phone_teacher} = req.body;
     const { image } = req.files;
 
-    // Validate required fields
     if (!subject || !days || !lesson_time || !teacher_name || !phone_teacher || !image) {
       throw new BadRequestError('Please provide all required data, including an image')
     }
-
-    // Use FileService to save the file
     const fileName = FileService.save(image);
 
-    // Save the file name to the database
     const group = await Group.create({
       subject,
       days,
       lesson_time,
       teacher_name,
       phone_teacher,
-      image: fileName, // Save the file name
+      image: fileName,
     });
 
     return res.status(201).json({
@@ -54,8 +50,8 @@ const getGroupByName = async (req, res) => {
     try {
       const { name } = req.params;
     const group = await Group.findByName(name)
-    const students = await Student.findOne({subject: name})
-    const teacher = await Teacher.findByName({subject: name})
+    const students = await Student.find({subject: name})
+    const teacher = await Teacher.findOne({subject: name})
     if (!group) {
    throw new NotFoundError(`No group with name: ${name}`);
     }

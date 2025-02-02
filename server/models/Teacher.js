@@ -29,6 +29,10 @@ const TeacherSchema = new mongoose.Schema(
       },
       required: [true, "Teacher phone number required"],
     },
+    image:{
+      type:String,
+      default: "no-photo.jpg"
+    }
   },
   { timestamps: true, versionKey: false }
 );

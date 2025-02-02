@@ -31,17 +31,15 @@ const createStudent = async (req, res) => {
       return res.status(400).json({ msg: "Please provide all the required fields, including an image." });
     }
 
-    // Use FileService to save the file
     const fileName = FileService.save(image);
 
-    // Save the file name to the database
     const student = await Student.create({
       full_name,
       phone_student,
       subject,
       parents_name,
       phone_parents,
-      image: fileName, // Save the file name
+      image: fileName,
     });
 
     return res.status(201).json({
