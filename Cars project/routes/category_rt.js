@@ -28,6 +28,7 @@ const {
 } = require("../controllers/categories");
 const { checkAdminToken, tokenChecker } = require("../middleware/checkToken");
 const { categoryValidate } = require("../middleware/categoryValidMiddl");
+const upload = require("../utils/multer")
 
 const router = Router();
 
@@ -126,7 +127,7 @@ router.get("/category/search", tokenChecker, search);
  *       500:
  *         description: Internal Server Error
  */
-router.post("/add_category", [categoryValidate, checkAdminToken], addCategory);
+router.post("/add_category", checkAdminToken, upload.single("image"), addCategory);
 
 /**
  * @swagger

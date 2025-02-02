@@ -193,7 +193,7 @@ router.get("/get_one_car/:id", tokenChecker, getSingleCar);
  *         description: Internal Server Error
  */
 
-router.post("/add_car", [upload.array("images", 3), carValidate, checkAdminToken], addCar);
+router.post("/add_car", tokenChecker, checkAdminToken, upload.array("images", 5), addCar);
 
 /**
  * @swagger

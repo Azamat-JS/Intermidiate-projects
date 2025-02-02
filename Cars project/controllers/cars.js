@@ -66,7 +66,9 @@ const getSingleCar = async (req, res) => {
 const addCar = async (req, res) => {
   try {
     const { model, price, engine, year, category, distance, tinting, color, description } = req.body;
-
+    console.log("Headers:", req.headers);  // Debugging
+    console.log("Request Body:", req.body);
+    console.log("Uploaded Files:", req.files);
     if (!req.files || req.files.length === 0) {
       return res.status(400).json({ msg: "Please upload at least one image" });
     }
@@ -92,6 +94,7 @@ const addCar = async (req, res) => {
       car,
     });
   } catch (err) {
+    console.error("Error in addCar:", err);
     res.status(500).json({
       msg: "Error with adding car",
       error: err.message,

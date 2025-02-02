@@ -29,7 +29,7 @@ const TeacherSchema = new mongoose.Schema(
       },
       required: [true, "Teacher phone number required"],
     },
-    image:{
+    teacher_image:{
       type:String,
       default: "no-photo.jpg"
     }

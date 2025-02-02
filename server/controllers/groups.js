@@ -34,10 +34,9 @@ const createGroup = async (req, res) => {
       phone_teacher,
       teacher_image: fileName,
     });
-
     return res.status(201).json({
       message: "New group added successfully",
-      group,
+      group
     });
   } catch (error) {
     console.error(error);
@@ -64,6 +63,7 @@ const getGroupByName = async (req, res) => {
 // Update a group by ID
 const updateGroup = async (req, res) => {
   const { id } = req.params;
+
   try {
     const group = await Group.findByIdAndUpdate(id, req.body, {
       new: true,

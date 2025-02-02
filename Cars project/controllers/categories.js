@@ -1,7 +1,6 @@
 const Category = require("../models/Category");
 const Car = require('../models/Car')
 const BaseError = require('../errors/base_error')
-const fileService = require('../service/fileService')
 
 const getAllCategories = async (req, res) => {
   const categories = await Category.find();
@@ -20,17 +19,35 @@ const getOneCategory = async(req, res) => {
 
 
 const addCategory = async (req, res) => {
-  const {brand} = req.body
-  const {image} = req.files
-  const imageName = fileService.save(image)
-  const category = await Category.create({
-    brand,
-    image: imageName
-  })
-  res.status(201).json({
-    msg: "category added successfully",
-    category});
+  try {
+    console.log("Uploaded File:", req.file); // Debugging
+    console.log("Request Body:", req.body);
+
+    if (!req.file) {
+      return res.status(400).json({ msg: "Please upload an image" });
+    }
+
+    const { brand } = req.body;
+    const imageName = req.file.filename; // Get the filename from multer
+
+    const category = await Category.create({
+      brand,
+      image: imageName,
+    });
+
+    res.status(201).json({
+      msg: "Category added successfully",
+      category,
+    });
+  } catch (err) {
+    console.error("Error in addCategory:", err);
+    res.status(500).json({
+      msg: "Error adding category",
+      error: err.message,
+    });
+  }
 };
+
 
 const updateCategory = async (req, res) => {
   const {id} = req.params

@@ -33,8 +33,6 @@ const router = Router();
  *       - Notifications
  *     summary: Get all notifications
  *     description: Retrieve all notifications in the system.
- *     security:
- *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: List of notifications
@@ -48,8 +46,6 @@ const router = Router();
  *       - Notifications
  *     summary: Get a single notification
  *     description: Retrieve a single notification by its ID.
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - name: id
  *         in: path
@@ -71,9 +67,6 @@ const router = Router();
  *     tags:
  *       - Notifications
  *     summary: Create a new notification
- *     description: Admins can create a new notification.
- *     security:
- *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -95,8 +88,6 @@ const router = Router();
  *       - Notifications
  *     summary: Update a notification
  *     description: Admins can update an existing notification by ID.
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - name: id
  *         in: path
@@ -127,8 +118,6 @@ const router = Router();
  *       - Notifications
  *     summary: Delete a notification
  *     description: Admins can delete a notification by ID.
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - name: id
  *         in: path

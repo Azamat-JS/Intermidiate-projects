@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const router = Router();
 
-const { getAllTeachers, getOneTeacher, createTeacher, deleteTeacher, updateTeacher } = require("../controllers/teachers");
+const { getAllTeachers, getOneTeacher, createTeacher, deleteTeacher, updateTeacher } = require("../controllers/teacher_ctr");
 
 router.get("/teachers", getAllTeachers);
 router.post("/teachers", createTeacher);
