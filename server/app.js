@@ -12,6 +12,7 @@ const studentRouter = require('./routes/student_rt');
 const mainRouter = require('./routes/main_rt');
 const teacherRouter = require('./routes/teacher_rt');
 const paymentRouter = require('./routes/payment_rt');
+const appealRouter = require('./routes/appeals_rt')
 
 // Middleware
 app.use(express.json()); // Body parser should be at the top
@@ -26,6 +27,7 @@ app.use(studentRouter);
 app.use(mainRouter);
 app.use(teacherRouter);
 app.use(paymentRouter);
+app.use(appealRouter);
 
 // Error Handling Middleware
 app.use(notFoundMiddleware);

@@ -38,10 +38,6 @@ const createTeacher = async (req, res) => {
 
 const updateTeacher = async (req, res) => {
   const { id } = req.params;
-  const { teacher_name, subject, phone_teacher } = req.body;
-  if (!teacher_name || !subject || !phone_teacher) {
-    throw new BadRequestError("Please provide all the required fields");
-  }
   const teacher = await Teacher.findByIdAndUpdate({ _id: id }, req.body, {
     new: true,
     runValidators: true,

@@ -8,7 +8,7 @@ const createPayment = async (req, res) => {
         if(!student){
            throw new NotFoundError(`No student with phone number: ${phone_student}`);
         }
-        const payment = await new Payment(req.body);
+        const payment = new Payment(req.body);
         await payment.save();
         res.status(201).json({message:`The payment has been carried out successfully`, payment});
     } catch (error) {

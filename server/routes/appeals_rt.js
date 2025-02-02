@@ -5,3 +5,5 @@ const { getAllAppeals, writeAppeal, deleteAppeal } = require('../controllers/app
 
 router.route('/appeals').get(getAllAppeals).post(writeAppeal)
 router.delete('/appeals/:id', deleteAppeal)
+
+module.exports = router
