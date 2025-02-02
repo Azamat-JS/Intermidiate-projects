@@ -19,6 +19,7 @@ const PaymentSchema = new mongoose.Schema({
     },
     required:[true, 'Student phone number required'],
 },
+
 subject:{
   type:String,
   required:[true, 'Please provide a subject'],

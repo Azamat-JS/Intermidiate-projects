@@ -50,7 +50,6 @@ const updateTeacher = async (req, res) => {
     teacher,
   });
 };
-
 const deleteTeacher = async (req, res) => {
   const { id } = req.params;
   const teacher = await Teacher.findOneAndDelete(id);
