@@ -23,7 +23,7 @@ app.use(cors({credentials: true}))
 app.use(express.json());
 app.use(cookieParser())
 
-app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/library', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use(booksRouter);
 app.use(authorRouter);
