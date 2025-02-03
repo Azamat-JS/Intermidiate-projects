@@ -17,9 +17,9 @@ const swaggerUi = require('swagger-ui-express')
 const swaggerDocs = require("./utils/swagger")
 
 // Middleware
-app.use(express.json()); // Body parser should be at the top
+app.use(express.json());
 app.use(cors());
-app.use('/crmswagger', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
+app.use('/crmswagger', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use(fileUpload({}));
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
