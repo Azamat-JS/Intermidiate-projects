@@ -35,9 +35,8 @@ teacher_name:{
   maxlength: 40,
 },
   payment_day:{
-    type:String,
-    required:[true, 'Please provide the payment day'],
-    default: Date.now()
+    type:Date,
+    default: Date.now
   }
 },{ timestamps: true, versionKey: false });
 

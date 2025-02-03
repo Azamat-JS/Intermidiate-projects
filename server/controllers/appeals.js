@@ -17,6 +17,39 @@ const getAllAppeals = async(req, res)=> {
     res.status(StatusCodes.OK).json(appeals)
 }
 
+const getTodaysAppeals = async(req, res) => {
+    const startOfDay = new Date()
+    startOfDay.setHours(0, 0, 0, 0)
+
+    const endOfDay = new Date()
+    endOfDay.setHours(23, 59, 59, 999)
+
+    const appeals = await Appeal.find({
+        createdAt: {$gte: startOfDay, $lte: endOfDay}
+    })
+    if(!appeals){
+        res.status(404).send("Today no appeals were received")
+    }
+    res.status(200).json({message: "Today's appeals: ", appeals})
+}
+
+const getYesterdaysAppeals = async (req, res) => {
+    const startOfYesterday = new Date()
+    startOfYesterday.setDate(startOfYesterday.getDate() - 1)
+    startOfYesterday.setHours(0, 0, 0, 0)
+
+    const endOfYesterday = new Date()
+    endOfYesterday.setDate(endOfYesterday.getDate() - 1)
+    endOfYesterday.setHours(23, 59, 59, 999)
+
+    const appeals = await Appeal.find({
+        createdAt: {$gte: startOfYesterday, $lte: endOfYesterday}
+    })
+    if(!appeals){
+        res.status(404).send('Yesterday no appeals were received')
+    }
+}
+
 const deleteAppeal = async(req, res) => {
     const {id} = req.params
 
@@ -30,5 +63,7 @@ const deleteAppeal = async(req, res) => {
 module.exports = {
     writeAppeal,
     getAllAppeals,
-    deleteAppeal
+    deleteAppeal,
+    getTodaysAppeals,
+    getYesterdaysAppeals
 }

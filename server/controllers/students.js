@@ -74,6 +74,7 @@ const deleteStudent = async (req, res) => {
   if(!student){
     return(404).send(`No Student with id: ${id}`)
   }
+  await DropOut.create({full_name: student.full_name, phone_student: student.phone_student})
   res.status(StatusCodes.OK).send('Deleted successfully')
 };
 module.exports = {

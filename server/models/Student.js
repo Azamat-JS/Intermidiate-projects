@@ -51,7 +51,6 @@ parents_name:{
     type:String,
     default: "no-photo.jpg"
   },
-  dropoutDate: { type: Date, default: Date.now, index: { expires: '30d' } } 
 },{ timestamps: true, versionKey: false });
 
 StudentSchema.statics.findByName = function (full_name) {

@@ -13,15 +13,7 @@ const dropOutSchema = new mongoose.Schema({
             message: props => `${props.value} is not a valid phone number!`
         },
     },
-    subject: {
-        type: String,
-    },
-    parents_name: {
-        type: String,
-    },
-    phone_parents: {
-        type: String,
-    }
+    dropoutDate: { type: Date, default: Date.now, index: { expires: '30d' } } 
 }, { timestamps: true, versionKey: false })
 
 module.exports = mongoose.model('DropOut', dropOutSchema)

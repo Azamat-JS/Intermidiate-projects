@@ -20,7 +20,7 @@ const createPayment = async (req, res) => {
 
 const getPayments = async (req, res) => {
     try {
-        const payments = await Payment.find({});
+        const payments = await Payment.find({}).limit(4).sort('createdAt');
         res.status(200).json({payments: payments, total: payments.length});
     } catch (error) {
         res.status(500).send(error);
