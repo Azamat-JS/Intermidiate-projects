@@ -26,6 +26,7 @@ const checkAdminToken = (req, res, next) => {
     const token = authHeader.split(" ")[1];
     try {
       let payload = jwt.verify(token, process.env.ACCESS_SECRET);
+      req.user = {userId:payload.id};
       if(payload.role !== "admin"){
         return next(BaseError.UnauthorizedError('You are not admin'))
       }

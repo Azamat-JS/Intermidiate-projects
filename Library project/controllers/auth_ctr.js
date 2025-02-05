@@ -5,7 +5,6 @@ const BaseError = require("../errors/base_error");
 const nodemailer = require("nodemailer");
 const {createToken, refreshToken} = require('../token/generate_token')
 const mongoLog = require('../service/mongoLogger')
-const detectDevice = require('../utils/deviceDetector')
 
 
 const register = async (req, res, next) => {
@@ -61,7 +60,7 @@ const register = async (req, res, next) => {
         $set: { verification_code: 0 },
       });
     }, 120 * 1000);
-    res.status(201).json({ msg: "User created successfully", newUser });
+    res.status(201).json({ msg: "User registered successfully" });
   } catch (error) {
     next(error);
   }
@@ -102,24 +101,13 @@ const login = async (req, res, next) => {
     const isPasswordMatch = await bcrypt.compare(password, user.password);
 
     let payload = { email: user.email, id: user._id, role: user.role };
+
     let generatetoken = createToken(payload)
     let refreshtoken = refreshToken(payload)
     
     res.cookie("generatetoken", generatetoken, {httpOnly:true, maxAge: 900 * 1000})
     res.cookie("refreshToken", refreshtoken, {httpOnly:true, maxAge: 3600 * 1000 * 24 * 15})
-    
-    const deviceId = detectDevice(req)
-    if(!deviceId){
-      throw BaseError.BadRequestError('Could not detect device')
-    }
 
-    if(!user.devices.includes(deviceId)){
-      if(user.devices.length >= 3){
-        return res.status(403).json({message: 'Device limit exceeded'})
-      }
-      user.devices.push(deviceId)
-      await user.save()
-    }
     
     if (isPasswordMatch && user.isVerify) {
     return  res.status(200).json({ msg: "User logged in successfully", generatetoken });

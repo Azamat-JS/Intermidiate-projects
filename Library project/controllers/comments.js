@@ -6,7 +6,8 @@ const getAllComments = async(req, res) => {
 }
 
 const createComment = async (req, res) => {
-    const comment = await Comment.create({ ...req.body });
+    req.body.user_info = req.user.userId
+    const comment = await Comment.create(req.body);
     res.status(201).json({
         msg: "comment added successfully",
         comment});

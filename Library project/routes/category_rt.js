@@ -5,3 +5,5 @@ const {getAllCategories, getOneCategory, createCategory} = require('../controlle
 router.get('/', getAllCategories)
 router.get('/:id', getOneCategory)
 router.post('/add_category', createCategory)
+
+module.exports = router

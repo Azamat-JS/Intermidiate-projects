@@ -1,6 +1,6 @@
 const Author = require("../models/author");
 const BaseError = require('../errors/base_error')
-const Book = require('../models/book')
+const Book = require('../models/book');
 
 const getAllAuthors = async (req, res) => {
   const authors = await Author.find();
@@ -36,7 +36,7 @@ const updateAuthor = async (req, res) => {
 
 const deleteAuthor = async (req, res) => {
   const {id} = req.params
-  const author = await Author.findByIdAndDelete({_id: id})
+   await Author.findByIdAndDelete(id)
   res.status(200).json({message:"The author deleted successfully"})
 }
 

@@ -7,12 +7,12 @@ const CommentSchema = new mongoose.Schema({
         min: [6, "Comment must be at least 6 characters"],
         max: [55, "Comment must be at most 55 characters"],
     },
-    user: {
-        type: mongoose.Types.ObjectId,
+    user_info: {
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Auth",
         required: [true, "User must be provided"]
     },
-    book: {
+    bookId: {
         type: mongoose.Types.ObjectId,
         ref: "Book",
         required: [true, "Book must be provided"]

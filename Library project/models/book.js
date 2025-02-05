@@ -21,9 +21,6 @@ const BookSchema = new mongoose.Schema({
     type: Number,
     default: 4.5,
   },
-  comments: {
-    type: String,
-  },
   author_info:{
     type:mongoose.Types.ObjectId,
     ref: "Author",

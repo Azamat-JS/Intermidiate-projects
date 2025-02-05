@@ -1,6 +1,7 @@
+const BaseError = require("../errors/base_error");
 const Book = require("../models/book");
 const Comment = require("../models/comments");
-const os = require('os')
+const os = require('os');
 
 const getAllBooks = async (req, res) => {
   const { name, sort, numericFilters, fields } = req.query;
@@ -58,7 +59,7 @@ const getSingleBook = async(req, res) => {
 }
 
 const createBook = async(req, res) =>{
-  const book = await Book.create({...req.body})
+ const book = await Book.create({...req.body})
   res.status(201).json({
     msg: "book added successfully",
     book})
@@ -77,6 +78,9 @@ const updateBook = async(req, res) => {
 const deleteBook = async(req, res) => {
   const {id} = req.params
   const book = await Book.findByIdAndDelete(id)
+  if(!book){
+    throw BaseError.NotFoundError(`There is no error with id: ${id}`)
+  }
   res.status(200).send('book deleted successfully')
 }
 
