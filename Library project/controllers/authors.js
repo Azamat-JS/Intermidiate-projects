@@ -1,4 +1,6 @@
 const Author = require("../models/author");
+const BaseError = require('../errors/base_error')
+const Book = require('../models/book')
 
 const getAllAuthors = async (req, res) => {
   const authors = await Author.find();
@@ -6,9 +8,13 @@ const getAllAuthors = async (req, res) => {
 };
 
 const getAuthor = async(req, res) => {
-  const {name} = req.params
-  const author = await Author.findOne({name: {$regex: name, $options: 'i'}})
-  res.status(200).json(author)
+  const {id} = req.params
+  const author = await Author.findById(id)
+  if(!author){
+     throw BaseError.NotFoundError(`There is no author with id: ${id}`)
+  }
+  const books = await Book.find({author_info: id})
+  res.status(200).json(author, books)
 }
 
 const addAuthor = async (req, res) => {

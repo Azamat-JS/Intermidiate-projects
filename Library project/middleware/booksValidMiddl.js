@@ -1,5 +1,5 @@
 const {bookValidator} = require('../validator/bookValidator')
-const CustomAPIError = require('./custom-api')
+const BaseError = require('../errors/base_error')
 
 module.exports.bookValidate = (req, res, next) => {
 try{
@@ -10,6 +10,6 @@ if(error){
 return next()
 }
 catch(error){
-    throw CustomAPIError(error.message)
+    throw BaseError(500, error.message)
 }
 }

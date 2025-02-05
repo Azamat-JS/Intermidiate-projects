@@ -22,6 +22,11 @@ const AuthorSchema = new mongoose.Schema({
      type:String,
      maxlength:[30, 'You can not write more than 30 letters'],
      trim:true
+    },
+    category:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Category",
+        required:[true, "Author's category must be provided"]
     }
 },
 {

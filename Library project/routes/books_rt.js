@@ -37,11 +37,9 @@
 
 const express = require('express')
 const router = express.Router()
-const {tokenChecker, checkAdminToken} = require('../middleware/checkToken')
-const {deviceLimitMiddleware, detectData} = require('../middleware/deviceLimit')
+const {checkAdminToken} = require('../middleware/checkToken')
 
 const {getSingleBook, getAllBooks, createBook, updateBook, deleteBook} = require('../controllers/books')
-const { bookValidate } = require('../middleware/booksValidMiddl')
 
 
 /**
@@ -129,7 +127,7 @@ const { bookValidate } = require('../middleware/booksValidMiddl')
 
 
 
-router.get('/get_books', [tokenChecker, deviceLimitMiddleware, detectData], getAllBooks)
+router.get('/get_books', getAllBooks)
 
 /**
  * @swagger
@@ -157,7 +155,7 @@ router.get('/get_books', [tokenChecker, deviceLimitMiddleware, detectData], getA
  */
 
 
-router.get('/get_one_book/:id', tokenChecker, getSingleBook)
+router.get('/get_one_book/:id', getSingleBook)
 
 /**
  * @swagger
@@ -217,7 +215,7 @@ router.get('/get_one_book/:id', tokenChecker, getSingleBook)
  *         description: Internal Server Error
  */
 
-router.post('/add_book', [bookValidate, checkAdminToken], createBook)
+router.post('/add_book', checkAdminToken, createBook)
 
 /**
  * @swagger

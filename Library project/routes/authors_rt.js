@@ -48,7 +48,7 @@ const {checkAdminToken, tokenChecker} = require('../middleware/checkToken')
  *         description: Internal Server Error
  */
 
-router.get('/get_authors',tokenChecker, getAllAuthors)
+router.get('/get_authors', getAllAuthors)
 
 /**
  * @swagger
@@ -103,7 +103,7 @@ router.get('/get_authors',tokenChecker, getAllAuthors)
  */
 
 
-router.get('/get_one_author/:name',tokenChecker, getAuthor)
+router.get('/get_one_author/:name', getAuthor)
 
 /**
  * @swagger
@@ -126,7 +126,7 @@ router.get('/get_one_author/:name',tokenChecker, getAuthor)
  *       500:
  *         description: Internal Server Error
  */
-router.get('/get_authors/search',tokenChecker, search)
+router.get('/get_authors/search', search)
 
 /**
  * @swagger
@@ -178,7 +178,7 @@ router.get('/get_authors/search',tokenChecker, search)
  *       500:
  *         description: Internal Server Error
  */
-router.post('/add_author', [authorValidate, checkAdminToken], addAuthor)
+router.post('/add_author', checkAdminToken, addAuthor)
 
 /**
  * @swagger

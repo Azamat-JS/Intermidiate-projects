@@ -1,5 +1,4 @@
 const {authValidator, verifyValidator, loginValidator} = require("../validator/authValidator");
-const CustomAPIError = require("./custom-api");
 
 const authValidate = (req, res, next) => {
     try{
@@ -10,7 +9,7 @@ const authValidate = (req, res, next) => {
         return next()
     }
     catch(error){
-        throw CustomAPIError(error.message)
+        throw BaseError(500, error.message)
     }
 }
 
@@ -22,7 +21,7 @@ const verifyValidate = (req, res, next) => {
         }
         return next()
     } catch (error) {
-        throw CustomAPIError(error.message)
+        throw BaseError(500, error.message)
     }
 }
 
@@ -34,7 +33,7 @@ const loginValidate = (req, res, next) => {
         }
         return next()
     } catch (error) {
-      throw CustomAPIError(error.message)  
+      throw BaseError(500, error.message)  
     }
 }
 
