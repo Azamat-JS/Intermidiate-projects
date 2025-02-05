@@ -4,17 +4,17 @@ const Book = require('../models/book');
 
 const getAllAuthors = async (req, res) => {
   const authors = await Author.find();
-  res.status(200).json(authors);
+  res.status(200).json({authors});
 };
 
 const getAuthor = async(req, res) => {
   const {id} = req.params
-  const author = await Author.findById(id)
+  const author = await Author.findById(id)  
   if(!author){
      throw BaseError.NotFoundError(`There is no author with id: ${id}`)
   }
   const books = await Book.find({author_info: id})
-  res.status(200).json(author, books)
+  res.status(200).json({author, books})
 }
 
 const addAuthor = async (req, res) => {
@@ -45,7 +45,7 @@ const search = async (req, res) => {
   const searchedValue = await Author.find({
     name: { $regex: name, $options: "i" },
   });
-  res.status(200).json(searchedValue)
+  res.status(200).json({searchedValue})
 };
 
 module.exports = {

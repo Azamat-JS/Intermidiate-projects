@@ -9,6 +9,8 @@ const categorySchema = new mongoose.Schema({
          message: "{VALUE} is not supported"
         }
     }
+},{
+versionKey: false
 })
 
 module.exports = mongoose.model('Category', categorySchema)

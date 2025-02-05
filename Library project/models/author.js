@@ -24,9 +24,12 @@ const AuthorSchema = new mongoose.Schema({
      trim:true
     },
     category:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Category",
-        required:[true, "Author's category must be provided"]
+        type:String,
+        required:true,
+        enum:{
+         values:["Jadid adabiyoti", "Temuriylar davri", "Mustaqillik davri"],
+         message: "{VALUE} is not supported"
+        }
     }
 },
 {

@@ -15,6 +15,7 @@ const authRouter = require("./routes/auth_rt");
 const commentsRouter = require("./routes/comments_rt");
 const logRouter = require('./routes/logger_rt')
 const categoryRouter = require('./routes/category_rt')
+const profileRouter = require('./routes/profile_rt')
 const cookieParser = require('cookie-parser')
 
 const notFound = require("./middleware/not-found");
@@ -32,6 +33,7 @@ app.use(authRouter);
 app.use(commentsRouter);
 app.use(logRouter)
 app.use(categoryRouter)
+app.use(profileRouter)
 
 app.use(notFound);
 app.use(errorHandlerMiddleware);

@@ -103,7 +103,7 @@ router.get('/get_authors', getAllAuthors)
  */
 
 
-router.get('/get_one_author/:name', getAuthor)
+router.get('/get_one_author/:id', getAuthor)
 
 /**
  * @swagger
