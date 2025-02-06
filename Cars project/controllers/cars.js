@@ -1,6 +1,6 @@
 const BaseError = require("../errors/base_error");
 const Car = require("../models/Car");
-const logger = require('../service/logger')
+const logger = require('../service/logger');
 
 const getAllCars = async (req, res) => {
   const { model, sort, numericFilters, fields } = req.query;
@@ -51,8 +51,8 @@ const getAllCars = async (req, res) => {
 };
 
 const getSingleCar = async (req, res) => {
-  const { id: carId } = req.params;
-  const car = await Car.findOne({ _id: carId }).populate(
+  const { carId } = req.params;
+  const car = await Car.findById(carId).populate(
     "category",
     "-_id, brand"
   );
@@ -63,18 +63,14 @@ const getSingleCar = async (req, res) => {
   res.status(200).json(car);
 };
 
+
 const addCar = async (req, res) => {
   try {
     const { model, price, engine, year, category, distance, tinting, color, description } = req.body;
-    console.log("Headers:", req.headers);  // Debugging
-    console.log("Request Body:", req.body);
-    console.log("Uploaded Files:", req.files);
-    if (!req.files || req.files.length === 0) {
-      return res.status(400).json({ msg: "Please upload at least one image" });
+
+    if (!req.fileUrls || req.fileUrls.length === 0) {
+      return res.status(400).json({ msg: "Please upload at least three images" });
     }
-
-    const imageFilenames = req.files.map((file) => file.filename);
-
 
     const car = await Car.create({
       model,
@@ -86,7 +82,7 @@ const addCar = async (req, res) => {
       description,
       tinting,
       category,
-      images: imageFilenames,
+      images: req.fileUrls
     });
 
     res.status(201).json({
@@ -102,17 +98,20 @@ const addCar = async (req, res) => {
   }
 };
 
+module.exports = { addCar };
+
+
 
 
 const updateCar = async (req, res) => {
-  const { id } = req.params;
+  const { carId } = req.params;
 
-  const car = await Car.findByIdAndUpdate({ _id: id }, req.body, {
+  const car = await Car.findByIdAndUpdate({ _id: carId }, req.body, {
     new: true,
     runValidators: true,
   });
   if (!car) {
-    throw BaseError.NotFoundError("There is no car with id:" + id);
+    throw BaseError.NotFoundError("There is no car with id:" + carId);
   }
 
   logger.info('car updated')
@@ -124,8 +123,8 @@ const updateCar = async (req, res) => {
 };
 
 const deleteCar = async (req, res) => {
-  const { id } = req.params;
-  await Car.findByIdAndDelete(id);
+  const { carId } = req.params;
+  await Car.findByIdAndDelete(carId);
   logger.info('car deleted')
   res.status(200).send("Car deleted successfully");
 };

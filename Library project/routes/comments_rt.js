@@ -28,7 +28,7 @@ const {Router} = require('express')
 const router = Router()
 
 const {createComment, getAllComments} = require('../controllers/comments')
-
+const {tokenChecker} = require('../middleware/checkToken')
 /**
  * @swagger
  * /comment:
@@ -101,6 +101,6 @@ const {createComment, getAllComments} = require('../controllers/comments')
  *       500:
  *         description: Internal Server Error
  */
-router.route('/comment').get(getAllComments).post(createComment)
+router.route('/comment').get(getAllComments).post(tokenChecker, createComment)
 
 module.exports = router

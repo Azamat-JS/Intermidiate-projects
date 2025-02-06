@@ -13,8 +13,6 @@ const tokenChecker = (req, res, next) => {
   try {
     let payload = jwt.verify(token, process.env.ACCESS_SECRET);
 
-    console.log("Decoded Payload:", payload); // Debugging line
-
     req.user = { userId: payload.id || payload.userId || payload.sub || payload._id };
 
     if (!req.user.userId) {
@@ -39,8 +37,6 @@ const checkAdminToken = (req, res, next) => {
 
   try {
     let payload = jwt.verify(token, process.env.ACCESS_SECRET);
-
-    console.log("Decoded Payload:", payload); // Debugging line
 
     if (payload.role !== "admin") {
       throw BaseError.UnauthorizedError("You are not an admin");

@@ -20,19 +20,17 @@ const getOneCategory = async(req, res) => {
 
 const addCategory = async (req, res) => {
   try {
-    console.log("Uploaded File:", req.file); // Debugging
-    console.log("Request Body:", req.body);
+  
 
-    if (!req.file) {
+    if (!req.fileUrl) {
       return res.status(400).json({ msg: "Please upload an image" });
     }
 
     const { brand } = req.body;
-    const imageName = req.file.filename; // Get the filename from multer
 
     const category = await Category.create({
       brand,
-      image: imageName,
+      image: req.fileUrl,
     });
 
     res.status(201).json({

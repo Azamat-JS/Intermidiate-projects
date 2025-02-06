@@ -26,6 +26,10 @@ const BookSchema = new mongoose.Schema({
     ref: "Author",
     required:[true, "Author's info must be provided"]
   },
+  comments:{
+    type:mongoose.Types.ObjectId,
+    ref:'Comment'
+  }
 },
 {
   versionKey:false,

@@ -10,7 +10,7 @@ const tokenChecker = (req, res, next) => {
   const token = authHeader.split(" ")[1];
   try {
     let payload = jwt.verify(token, process.env.ACCESS_SECRET);
-    req.user = { userId: payload.id || payload.userId };
+    req.user = { userId: payload.id };
     next();
   } catch (error) {
    return next(BaseError.UnauthorizedError("Authentication invalid"));

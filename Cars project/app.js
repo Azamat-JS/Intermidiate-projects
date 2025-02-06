@@ -1,5 +1,6 @@
 require("dotenv").config();
 require("express-async-errors");
+const path = require('path')
 
 const express = require("express");
 const app = express();
@@ -17,12 +18,11 @@ const swaggerDocs = require("./utils/swagger")
 const cors = require('cors')
 const notFound = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
-const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
 
-app.use(express.urlencoded({extended:true}))
+
 app.use(express.json());
-app.use(express.static('upload'))
+app.use(express.urlencoded({extended:true}))
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 app.use(cors())
 app.use(cookieParser())
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocs));

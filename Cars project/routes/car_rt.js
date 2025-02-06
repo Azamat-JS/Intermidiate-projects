@@ -71,7 +71,7 @@ const {
   deleteCar,
 } = require("../controllers/cars");
 const { carValidate } = require("../middleware/carValidMiddl");
-const upload = require("../utils/multer");
+const {fileUploader} = require("../utils/multer");
 
 /**
  * @swagger
@@ -143,7 +143,7 @@ router.get("/get_cars", tokenChecker, getAllCars);
  *       500:
  *         description: Internal Server Error
  */
-router.get("/get_one_car/:id", tokenChecker, getSingleCar);
+router.get("/get_one_car/:carId", tokenChecker, getSingleCar);
 
 /**
  * @swagger
@@ -193,7 +193,7 @@ router.get("/get_one_car/:id", tokenChecker, getSingleCar);
  *         description: Internal Server Error
  */
 
-router.post("/add_car", tokenChecker, checkAdminToken, upload.array("images", 5), addCar);
+router.post("/add_car", checkAdminToken, fileUploader, addCar);
 
 /**
  * @swagger
@@ -224,7 +224,7 @@ router.post("/add_car", tokenChecker, checkAdminToken, upload.array("images", 5)
  *       500:
  *         description: Internal Server Error
  */
-router.put("/update_car/:id", checkAdminToken, updateCar);
+router.put("/update_car/:carId", checkAdminToken, updateCar);
 
 /**
  * @swagger
@@ -249,6 +249,6 @@ router.put("/update_car/:id", checkAdminToken, updateCar);
  *       500:
  *         description: Internal Server Error
  */
-router.delete("/delete_car/:id", checkAdminToken, deleteCar);
+router.delete("/delete_car/:carId", checkAdminToken, deleteCar);
 
 module.exports = router;

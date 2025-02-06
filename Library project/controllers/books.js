@@ -52,9 +52,9 @@ const getAllBooks = async (req, res) => {
 };
 
 const getSingleBook = async(req, res) => {
-  const {id:bookId} = req.params
+  const {bookId} = req.params
   const comment = await Comment.find({book:bookId})
-  const book = await Book.findOne({_id:bookId}).populate("author_info", "name").populate("comments", "comment")
+  const book = await Book.findById(bookId).populate("author_info", "-_id, name").populate("comments", "comment")
   res.status(200).json({book, comment})
 }
 
@@ -66,8 +66,8 @@ const createBook = async(req, res) =>{
 }
 
 const updateBook = async(req, res) => {
-  const {id} = req.params
-  const book = await Book.findByIdAndUpdate({_id:id}, req.body,
+  const {bookId} = req.params
+  const book = await Book.findByIdAndUpdate(bookId, req.body,
     {new:true, runValidators:true}
   )
   res.status(201).json({
@@ -76,8 +76,8 @@ const updateBook = async(req, res) => {
 }
 
 const deleteBook = async(req, res) => {
-  const {id} = req.params
-  const book = await Book.findByIdAndDelete(id)
+  const {bookId} = req.params
+  const book = await Book.findByIdAndDelete(bookId)
   if(!book){
     throw BaseError.NotFoundError(`There is no error with id: ${id}`)
   }

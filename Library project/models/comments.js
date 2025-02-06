@@ -13,9 +13,9 @@ const CommentSchema = new mongoose.Schema({
         required: [true, "User must be provided"]
     },
     bookId: {
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Book",
-        required: [true, "Book must be provided"]
+        required: [true, "book id must be provided"]
     },
 },
 {
