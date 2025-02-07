@@ -33,6 +33,9 @@ const authSchema = new mongoose.Schema({
     isVerify: {
         type: Boolean,
         default: false,
+    },
+    image:{
+        type:String
     }
 });
 

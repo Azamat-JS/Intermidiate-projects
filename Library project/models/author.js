@@ -30,6 +30,9 @@ const AuthorSchema = new mongoose.Schema({
          values:["Jadid adabiyoti", "Temuriylar davri", "Mustaqillik davri"],
          message: "{VALUE} is not supported"
         }
+    },
+    image:{
+        type:String
     }
 },
 {
