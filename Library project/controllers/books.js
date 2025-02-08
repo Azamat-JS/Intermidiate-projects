@@ -54,7 +54,7 @@ const getAllBooks = async (req, res) => {
 const getSingleBook = async(req, res) => {
   const {bookId} = req.params
   const comment = await Comment.find({book:bookId})
-  const book = await Book.findById(bookId).populate("author_info", "-_id, name").populate("comments", "comment")
+  const book = await Book.findById(bookId).populate("author_info", "-_id, name")
   res.status(200).json({book, comment})
 }
 
@@ -87,7 +87,7 @@ const deleteBook = async(req, res) => {
   const {bookId} = req.params
   const book = await Book.findByIdAndDelete(bookId)
   if(!book){
-    throw BaseError.NotFoundError(`There is no error with id: ${id}`)
+    throw BaseError.NotFoundError(`There is no error with id: ${bookId}`)
   }
   res.status(200).send('book deleted successfully')
 }

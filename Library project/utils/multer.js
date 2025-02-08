@@ -23,7 +23,7 @@ const upload = multer({ storage });
 
 class ImageUpload {
   singleImage(req, res, next) {
-    upload.single("picture")(req, res, (err) => {
+    upload.single("image")(req, res, (err) => {
       if (err) {
         return next(BaseError.BadRequestError(err.message))
       }
