@@ -8,7 +8,11 @@ exports.authorValidator = (data) => {
     
         death_year: Joi.number().max(new Date().getFullYear()),
     
-        nation: Joi.string().min(2).max(30)
+        nation: Joi.string().min(2).max(30),
+
+        category: Joi.string(),
+
+        picture: Joi.string()
     })
     return schema.validate(data) 
     }

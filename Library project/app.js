@@ -1,6 +1,7 @@
 require("dotenv").config();
 require("express-async-errors");
 require('winston-mongodb')
+const path = require('path')
 
 const express = require("express");
 const app = express();
@@ -23,6 +24,7 @@ const errorHandlerMiddleware = require("./middleware/error-handler");
 
 app.use(cors({credentials: true}))
 app.use(express.json());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 app.use(cookieParser())
 
 app.use('/library', swaggerUi.serve, swaggerUi.setup(swaggerDocs));

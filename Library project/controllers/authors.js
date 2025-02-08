@@ -18,7 +18,19 @@ const getAuthor = async(req, res) => {
 }
 
 const addAuthor = async (req, res) => {
-  const author = await Author.create(req.body);
+  if(!req.fileUrl){
+    throw BaseError.BadRequestError('You should upload an image')
+  }
+  const {name, birth_year, death_year, category, nation} = req.body
+  const author = await new Author({
+    name,
+    birth_year,
+    death_year,
+    nation,
+    category,
+    image: req.fileUrl
+  });
+  author.save()
   res.status(201).json({
     message: "author added successfully",
     author});

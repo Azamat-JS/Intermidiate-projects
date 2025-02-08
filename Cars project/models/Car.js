@@ -43,7 +43,8 @@ const carSchema = new mongoose.Schema(
       required: [true, "Category must be provided"],
       ref: "Category",
     },
-    images:[String]
+    images:[String],
+    default: []
   },
   {
     versionKey: false,
