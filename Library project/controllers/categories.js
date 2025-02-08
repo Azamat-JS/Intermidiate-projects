@@ -8,8 +8,6 @@ const getAllCategories = async (req, res) => {
     throw BaseError.NotFoundError("Categories not found");
   }
   res.status(200).json(categories);
-// await Category.deleteMany()
-// res.send('yes')
 };
 
 const createCategory = async (req, res) => {
@@ -21,9 +19,8 @@ const createCategory = async (req, res) => {
     name,
     image: req.fileUrl
   });
-  res
-    .status(201)
-    .json({ message: "New category added successfully", category });
+  category.save()
+  res.status(201).json({ message: "New category added successfully", category });
 };
 
 const getOneCategory = async (req, res) => {

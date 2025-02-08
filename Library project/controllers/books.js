@@ -59,7 +59,11 @@ const getSingleBook = async(req, res) => {
 }
 
 const createBook = async(req, res) =>{
- const book = await Book.create({...req.body})
+  if (!req.fileUrl) {
+    throw BaseError.BadRequestError("You should upload an image");
+  }
+ const book = await new Book({...req.body, image: req.fileUrl})
+ book.save()
   res.status(201).json({
     msg: "book added successfully",
     book})
