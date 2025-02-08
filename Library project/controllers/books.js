@@ -71,7 +71,11 @@ const createBook = async(req, res) =>{
 
 const updateBook = async(req, res) => {
   const {bookId} = req.params
-  const book = await Book.findByIdAndUpdate(bookId, req.body,
+  const updateBook = req.body
+  if(req.fileUrl){
+    updateBook.image = req.fileUrl
+  }
+  const book = await Book.findByIdAndUpdate(bookId, updateBook,
     {new:true, runValidators:true}
   )
   res.status(201).json({

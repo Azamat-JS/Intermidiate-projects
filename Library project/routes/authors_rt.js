@@ -8,7 +8,7 @@ const ImageUpload = require('../utils/multer')
 router.get('/get_authors', getAllAuthors)
 
 
-router.get('/get_one_author/:id', getAuthor)
+router.get('/get_one_author/:authorId', getAuthor)
 
 
 router.get('/get_authors/search', search)
@@ -17,9 +17,9 @@ router.get('/get_authors/search', search)
 router.post('/add_author', checkAdminToken, ImageUpload.singleImage, addAuthor)
 
 
-router.put('/update_author/:id',checkAdminToken, updateAuthor)
+router.put('/update_author/:authorId',checkAdminToken, ImageUpload.singleImage, updateAuthor)
 
 
-router.delete('/delete_author/:id', checkAdminToken, deleteAuthor)
+router.delete('/delete_author/:authorId', checkAdminToken, deleteAuthor)
 
 module.exports = router

@@ -10,11 +10,15 @@ const getAllCategories = async (req, res) => {
   res.status(200).json(categories);
 };
 
-const createCategory = async (req, res) => {
+const createCategory = async (req, res, next) => {
   if (!req.fileUrl) {
     throw BaseError.BadRequestError("You should upload an image");
   }
   const {name} = req.body
+  const newCategory = await Category.findOne({name:name})
+  if(newCategory){
+   return next(BaseError.BadRequestError('This category already exists'))
+  }
   const category = await new Category({
     name,
     image: req.fileUrl
@@ -24,10 +28,10 @@ const createCategory = async (req, res) => {
 };
 
 const getOneCategory = async (req, res) => {
-  const { id } = req.params;
-  const category = await Category.findById(id);
+  const { categoryId } = req.params;
+  const category = await Category.findById(categoryId);
   if (!category) {
-    throw BaseError.NotFoundError(`There is no category with id: ${id}`);
+    throw BaseError.NotFoundError(`There is no category with id: ${categoryId}`);
   }
   const authors = await Author.find({ category: category.name });
   if (!authors) {

@@ -8,12 +8,12 @@ const getAllAuthors = async (req, res) => {
 };
 
 const getAuthor = async(req, res) => {
-  const {id} = req.params
-  const author = await Author.findById(id)  
+  const {authorId} = req.params
+  const author = await Author.findById(authorId)  
   if(!author){
-     throw BaseError.NotFoundError(`There is no author with id: ${id}`)
+     throw BaseError.NotFoundError(`There is no author with id: ${authorId}`)
   }
-  const books = await Book.find({author_info: id})
+  const books = await Book.find({author_info: authorId})
   res.status(200).json({author, books})
 }
 
@@ -37,8 +37,12 @@ const addAuthor = async (req, res) => {
 };
 
 const updateAuthor = async (req, res) => {
-  const {id} = req.params
-  const author = await Author.findByIdAndUpdate({_id: id}, req.body,
+  const {authorId} = req.params
+  const updateAuthor = req.body
+  if(req.fileUrl){
+    updateAuthor.image = req.fileUrl
+  }
+  const author = await Author.findByIdAndUpdate(authorId, updateAuthor,
     {new:true, runValidators:true}
   )
   res.status(200).json({
@@ -47,8 +51,8 @@ const updateAuthor = async (req, res) => {
 }
 
 const deleteAuthor = async (req, res) => {
-  const {id} = req.params
-   await Author.findByIdAndDelete(id)
+  const {authorId} = req.params
+   await Author.findByIdAndDelete(authorId)
   res.status(200).json({message:"The author deleted successfully"})
 }
 

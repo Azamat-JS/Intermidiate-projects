@@ -11,7 +11,7 @@ router.get('/get_one_book/:bookId', getSingleBook)
 
 router.post('/add_book', checkAdminToken, ImageUpload.singleImage, createBook)
 
-router.put('/update_book/:bookId', checkAdminToken, updateBook)
+router.put('/update_book/:bookId', checkAdminToken,ImageUpload.singleImage, updateBook)
 
 router.delete('/delete_book/:bookId', checkAdminToken, deleteBook)
 
