@@ -1,6 +1,7 @@
 const { REQUEST_URI_TOO_LONG } = require("http-status-codes");
 const multer = require("multer");
 const path = require("path");
+const BaseError = require("../errors/base_error");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -33,20 +34,53 @@ const fileUploader = (req, res, next) => {
 };
 
 const singleFile = (req, res, next) => {
-upload.single('picture')(req, res, (err) => {
-  if(err){
-    return res.status(400).json({msg: err.message})
-  }
-  
-  if(!req.file){
-    return res.status(400).json({ msg: "You can upload only 1 image" });
-  }
-  req.fileUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+  upload.single("image")(req, res, (err) => {
+    if (err) {
+      return res.status(400).json({ msg: err.message });
+    }
 
-  next()
-})
-}
+    if (!req.file) {
+      return res.status(400).json({ msg: "You can upload only 1 image" });
+    }
+    req.fileUrl = `${req.protocol}://${req.get("host")}/uploads/${
+      req.file.filename
+    }`;
 
-module.exports = {fileUploader, singleFile};
+    next();
+  });
+};
 
+const multipleFields = (req, res, next) => {
+  upload.fields([
+    { name: "external_photo", maxCount: 1 },
+    { name: "inner_photo", maxCount: 1 },
+    { name: "model_photo", maxCount: 1 },
+  ])(req, res, (err) => {
+    if (err) {
+      return next(BaseError.BadRequestError("Please provide proper files"));
+    }
+    if (
+      !req.files ||
+      !req.files["external_photo"] ||
+      !req.files["inner_photo"] ||
+      !req.files["model_photo"]
+    ) {
+      return next(
+        BaseError.BadRequestError(err.message)
+      );
+    }
+    req.fileUrl1 = `${req.protocol}://${req.get("host")}/uploads/${
+      req.files["external_photo"][0].filename
+    }`;
+    req.fileUrl2 = `${req.protocol}://${req.get("host")}/uploads/${
+      req.files["inner_photo"][0].filename
+    }`;
+    req.fileUrl3 = `${req.protocol}://${req.get("host")}/uploads/${
+      req.files["model_photo"][0].filename
+    }`;
 
+    next();
+  });
+};
+
+module.exports = { fileUploader, singleFile, multipleFields };

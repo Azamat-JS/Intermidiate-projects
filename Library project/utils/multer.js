@@ -72,7 +72,7 @@ class ImageUpload {
         !req.files["model_photo"]
       ) {
         return next(BaseError.BadRequestError(
-          "You should only upload one image in every field"
+          "Please, check your request carefully"
         ));
       }
       req.fileUrl1 = `${req.protocol}://${req.get("host")}/uploads/${

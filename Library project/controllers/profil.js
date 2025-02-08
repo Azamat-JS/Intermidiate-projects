@@ -28,7 +28,7 @@ const updateProfile = async(req, res, next) => {
         res.status(200).json({success: true, data: profile})
 }
 
-const deleteProfile = async(req, res) => {
+const deleteProfile = async(req, res, next) => {
     const {userId} = req.user
     const profile = await Auth.findByIdAndDelete(userId)
     if(!profile){

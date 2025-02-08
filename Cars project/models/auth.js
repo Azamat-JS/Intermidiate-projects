@@ -34,6 +34,9 @@ const authSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    image:{
+        type:String
+    }
 });
 
 module.exports = mongoose.model("Auth", authSchema);
