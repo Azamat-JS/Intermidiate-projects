@@ -47,7 +47,7 @@ const router = Router();
  *     summary: Get a single notification
  *     description: Retrieve a single notification by its ID.
  *     parameters:
- *       - name: id
+ *       - name: notificationId
  *         in: path
  *         required: true
  *         description: ID of the notification
@@ -89,7 +89,7 @@ const router = Router();
  *     summary: Update a notification
  *     description: Admins can update an existing notification by ID.
  *     parameters:
- *       - name: id
+ *       - name: notificationId
  *         in: path
  *         required: true
  *         description: ID of the notification to update
@@ -119,7 +119,7 @@ const router = Router();
  *     summary: Delete a notification
  *     description: Admins can delete a notification by ID.
  *     parameters:
- *       - name: id
+ *       - name: notificationId
  *         in: path
  *         required: true
  *         description: ID of the notification to delete

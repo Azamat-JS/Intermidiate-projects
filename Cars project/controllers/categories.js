@@ -62,7 +62,7 @@ const updateCategory = async (req, res, next) => {
   }
   const category = await Category.findByIdAndUpdate(categoryId, editCategory, {
     new: true,
-    runValidators: true,
+    runValidators: true
   });
   if(!category){
     return next(BaseError.NotFoundError(`There is no category with id: ${categoryId}`))

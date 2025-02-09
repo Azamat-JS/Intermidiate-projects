@@ -23,7 +23,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 const fileUploader = (req, res, next) => {
-  upload.array("pictures", 3)(req, res, (err) => {
+  upload.array("images", 3)(req, res, (err) => {
     if (err) {
       return res.status(400).json({ msg: err.message });
     }
