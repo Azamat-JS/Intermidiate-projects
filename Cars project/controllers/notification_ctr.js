@@ -11,7 +11,7 @@ const getAllNotifications = async (req, res, next) => {
 
 const getOneNotification = async(req, res, next) => {
   const {notificationId} = req.params
-  const notification = await Notification.findById(id)
+  const notification = await Notification.findById(notificationId)
   if(!notificationId){
      return next(BaseError.NotFoundError(`There is no notification with id: ${notificationId}`))
   }

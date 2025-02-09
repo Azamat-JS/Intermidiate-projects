@@ -97,10 +97,6 @@ const addCar = async (req, res) => {
   }
 };
 
-module.exports = { addCar };
-
-
-
 
 const updateCar = async (req, res, next) => {
   const { carId } = req.params;

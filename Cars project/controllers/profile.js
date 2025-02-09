@@ -4,6 +4,9 @@ const BaseError = require('../errors/base_error')
 const getProfile = async(req, res, next) =>{
   const id = req.user.userId
   const user = await Auth.findById(id)
+  if(!user){
+    return next(BaseError.BadRequestError('You should register or login'))
+  }
  res.status(200).json( user )
 }
 
