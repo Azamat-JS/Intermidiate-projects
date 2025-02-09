@@ -48,8 +48,12 @@ const addCategory = async (req, res) => {
 
 
 const updateCategory = async (req, res) => {
-  const {id} = req.params
-  const category = await Category.findByIdAndUpdate({_id: id}, req.body,
+  const {categoryId} = req.params
+  const editCategory = req.body
+  if(req.fileUrl){
+    editCategory.image = req.fileUrl
+  }
+  const category = await Category.findByIdAndUpdate(categoryId, editCategory,
     {new:true, runValidators:true}
   )
   res.status(200).json({
@@ -58,25 +62,14 @@ const updateCategory = async (req, res) => {
 }
 
 const deleteCategory = async (req, res) => {
-  const {id} = req.params
-    await Category.findByIdAndDelete({_id: id})
-  res.status(200).json({msg:"deleted successfully"})
+  const {categoryId} = req.params
+    await Category.findByIdAndDelete(categoryId)
+  res.status(200).json({msg:"The category deleted successfully"})
 }
-
-const search = async (req, res) => {
-  const { brand } = req.query;
-  console.log(brand);
-  
-  const searchedValue = await Category.findOne({
-    brand: { $regex: brand, $options: "i" },
-  });
-  res.status(200).json(searchedValue)
-};
 
 module.exports = {
   getAllCategories,
   addCategory,
-  search,
   getOneCategory,
   updateCategory,
   deleteCategory

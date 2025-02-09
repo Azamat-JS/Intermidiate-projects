@@ -12,6 +12,7 @@ const authRouter = require("./routes/auth_rt");
 const answerRouter = require("./routes/answer_rt");
 const notificationRouter = require('./routes/notification_rt')
 const likeRouter = require('./routes/like_rt')
+const profileRouter = require('./routes/profile_rt')
 const cookieParser = require('cookie-parser')
 const swaggerUi = require('swagger-ui-express')
 const swaggerDocs = require("./utils/swagger")
@@ -32,6 +33,7 @@ app.use(authRouter);
 app.use(answerRouter);
 app.use(notificationRouter);
 app.use(likeRouter);
+app.use(profileRouter)
 
 app.use(notFound);
 app.use(errorHandlerMiddleware);

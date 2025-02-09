@@ -105,8 +105,11 @@ module.exports = { addCar };
 
 const updateCar = async (req, res) => {
   const { carId } = req.params;
-
-  const car = await Car.findByIdAndUpdate({ _id: carId }, req.body, {
+  const editCar = req.body
+  if(req.fileUrls){
+    editCar.images = req.fileUrls
+  }
+  const car = await Car.findByIdAndUpdate(carId, editCar, {
     new: true,
     runValidators: true,
   });
