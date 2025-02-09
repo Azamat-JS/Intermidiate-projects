@@ -2,8 +2,8 @@ const Like = require("../models/Likes");
 
 const pressLike = async (req, res, next) => {
   try {
-     const {userId} = req.user.userId
-     const {carId} = req.body
+     req.body.userId = req.user.userId
+     const {carId, userId} = req.body
 
     const existingLike = await Like.findOneAndDelete({ userId, carId });
 

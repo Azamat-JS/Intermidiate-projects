@@ -87,9 +87,9 @@ router.post("/register", authValidate, register);
  *                 description: User email
  *                 example: "example@gmail.com"
  *               code:
- *                 type: number
+ *                 type: string
  *                 description: Verification code sent to email
- *                 example: 342123
+ *                 example: "342123"
  *     responses:
  *       200:
  *         description: User verified successfully

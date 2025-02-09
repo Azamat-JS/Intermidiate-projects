@@ -10,7 +10,6 @@ const {
   updateCar,
   deleteCar,
 } = require("../controllers/cars");
-const { carValidate } = require("../middleware/carValidMiddl");
 
 router.get("/get_cars", tokenChecker, getAllCars);
 

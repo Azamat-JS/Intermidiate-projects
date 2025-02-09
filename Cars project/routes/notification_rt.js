@@ -40,7 +40,7 @@ const router = Router();
 
 /**
  * @swagger
- * /notifications/{id}:
+ * /notifications/{notificationId}:
  *   get:
  *     tags:
  *       - Notifications
@@ -82,7 +82,7 @@ const router = Router();
 
 /**
  * @swagger
- * /notifications/{id}:
+ * /notifications/{notificationId}:
  *   put:
  *     tags:
  *       - Notifications
@@ -112,7 +112,7 @@ const router = Router();
 
 /**
  * @swagger
- * /notifications/{id}:
+ * /notifications/{notificationId}:
  *   delete:
  *     tags:
  *       - Notifications
@@ -133,9 +133,9 @@ const router = Router();
  */
 
 router.get("/notifications", tokenChecker, getAllNotifications);
-router.get("/notifications/:id", tokenChecker, getOneNotification);
+router.get("/notifications/:notificationId", tokenChecker, getOneNotification);
 router.post("/create_notification", checkAdminToken, addNotification);
-router.put("/notifications/:id", checkAdminToken, updateNotification);
-router.delete("/notifications/:id", checkAdminToken, deleteNotification);
+router.put("/notifications/:notificationId", checkAdminToken, updateNotification);
+router.delete("/notifications/:notificationId", checkAdminToken, deleteNotification);
 
 module.exports = router;

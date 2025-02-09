@@ -27,7 +27,7 @@ const authSchema = new mongoose.Schema({
         },
     },
     verfication_code: {
-        type: Number,
+        type: String,
         required: [true, "Please enter a verfication_code"],
     },
     isVerify: {

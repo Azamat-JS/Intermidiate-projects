@@ -49,7 +49,7 @@ const register = async (req, res, next) => {
       username,
       email,
       password: hashedPassword,
-      verfication_code: +generatePassword,
+      verfication_code: generatePassword,
       role
     });
 
