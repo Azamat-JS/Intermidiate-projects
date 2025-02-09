@@ -1,15 +1,9 @@
 const Like = require("../models/Likes");
-const BaseError = require("../errors/base_error");
-const mongoose = require('mongoose')
 
 const pressLike = async (req, res, next) => {
   try {
-    if (!mongoose.Types.ObjectId.isValid(req.body.userId) || !mongoose.Types.ObjectId.isValid(req.body.carId)) {
-      throw BaseError.BadRequestError("Invalid User ID or Car ID");
-    }
-
-    const userId = new mongoose.Types.ObjectId(req.body.userId);
-    const carId = new mongoose.Types.ObjectId(req.body.carId);
+     const {userId} = req.user.userId
+     const {carId} = req.body
 
     const existingLike = await Like.findOneAndDelete({ userId, carId });
 

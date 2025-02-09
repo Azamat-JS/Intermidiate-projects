@@ -5,8 +5,7 @@ const {
   getOneCategory,
   addCategory,
   updateCategory,
-  deleteCategory,
-  search,
+  deleteCategory
 } = require("../controllers/categories");
 const { checkAdminToken, tokenChecker } = require("../middleware/checkToken");
 const {singleFile} = require("../utils/multer")
@@ -18,11 +17,7 @@ router.get("/categories", tokenChecker, getAllCategories);
 
 router.get("/categories/:brand", tokenChecker, getOneCategory);
 
-router.get("/category/search", tokenChecker, search);
-
-
 router.post("/add_category", checkAdminToken, singleFile, addCategory);
-
 
 router.put("/update_category/:categoryId", checkAdminToken, updateCategory);
 

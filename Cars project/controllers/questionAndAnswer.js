@@ -1,6 +1,5 @@
 const Answer = require('../models/answer');
 const Question = require('../models/questionSchema')
-const logger = require('../service/logger')
 
 const getAllQuestions = async(req, res) => {
     const questions = await Question.find().sort('createdAt').populate('givenBy', '-_id, username')
@@ -10,7 +9,6 @@ const getAllQuestions = async(req, res) => {
 const writeQuestion = async(req, res) => {
     req.body.givenBy = req.user.userId;
     const question = await Question.create(req.body);
-    logger.info(`New question: ${req.body.question}`)
     res.status(201).json({ question, message: 'Question was sent successfully' });
 }
 

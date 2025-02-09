@@ -1,6 +1,5 @@
 const BaseError = require("../errors/base_error");
 const Car = require("../models/Car");
-const logger = require('../service/logger');
 
 const getAllCars = async (req, res) => {
   const { model, sort, numericFilters, fields } = req.query;
@@ -103,7 +102,7 @@ module.exports = { addCar };
 
 
 
-const updateCar = async (req, res) => {
+const updateCar = async (req, res, next) => {
   const { carId } = req.params;
   const editCar = req.body
   if(req.fileUrls){
@@ -114,10 +113,8 @@ const updateCar = async (req, res) => {
     runValidators: true,
   });
   if (!car) {
-    throw BaseError.NotFoundError("There is no car with id:" + carId);
+    return next(BaseError.NotFoundError("There is no car with id:" + carId));
   }
-
-  logger.info('car updated')
 
   res.status(201).json({
     msg: "Car updated successfully",
@@ -125,10 +122,12 @@ const updateCar = async (req, res) => {
   });
 };
 
-const deleteCar = async (req, res) => {
+const deleteCar = async (req, res, next) => {
   const { carId } = req.params;
-  await Car.findByIdAndDelete(carId);
-  logger.info('car deleted')
+ const car = await Car.findByIdAndDelete(carId);
+ if(!car){
+  return next(BaseError.NotFoundError(`There is no car with id: ${carId}`))
+ }
   res.status(200).send("Car deleted successfully");
 };
 

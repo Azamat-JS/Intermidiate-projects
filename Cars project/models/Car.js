@@ -44,7 +44,6 @@ const carSchema = new mongoose.Schema(
       ref: "Category",
     },
     images:[String],
-    default: []
   },
   {
     versionKey: false,

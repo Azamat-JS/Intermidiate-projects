@@ -45,6 +45,9 @@ const updateAuthor = async (req, res) => {
   const author = await Author.findByIdAndUpdate(authorId, updateAuthor,
     {new:true, runValidators:true}
   )
+  if(!author){
+    throw BaseError.NotFoundError(`There is no author with id: ${authorId}`)
+  }
   res.status(200).json({
     message: "The author updated successfully",
     author})
