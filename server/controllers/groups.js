@@ -4,7 +4,7 @@ const Teacher = require("../models/Teacher");
 const NotFoundError = require("../errors/not-found");
 const BadRequestError = require('../errors/bad-request')
 const {StatusCodes} = require('http-status-codes')
-const FileService = require('../upload/upload_file')
+const FileService = require('../utils/upload_file')
 
 const getAllGroups = async (req, res) => {
   const groups = await Group.find({})

@@ -5,7 +5,6 @@ const {
 const Student = require("../models/Student");
 const Group = require("../models/Group");
 const { StatusCodes } = require("http-status-codes");
-const FileService = require('../upload/upload_file')
 const DropOut = require('../models/dropOut_students')
 
 const getAllStudents = async (req, res) => {
@@ -23,44 +22,29 @@ const getOneStudent = async (req, res) => {
 };
 
 const createStudent = async (req, res) => {
-  try {
-    const { full_name, phone_student, subject, parents_name, phone_parents } = req.body;
-    const { image } = req.files;
+ if(!req.fileUrl){
+    return next(new BadRequestError('You should provide an image'))
+ }
+    const student = new Student({...req.body, image: req.fileUrl});
+    console.log(student);
+    
+    await student.save();
 
-    // Validate required fields
-    if (!full_name || !phone_student || !subject || !parents_name || !phone_parents || !image) {
-      return res.status(400).json({ msg: "Please provide all the required fields, including an image." });
-    }
-
-    const fileName = FileService.save(image);
-
-    const student = await Student.create({
-      full_name,
-      phone_student,
-      subject,
-      parents_name,
-      phone_parents,
-      image: fileName,
-    });
-
-    return res.status(201).json({
+  res.status(201).json({
       message: "New student added successfully",
       student,
     });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ msg: "Something went wrong", error: error.message });
   }
-};
+
 
 
 const updateStudent = async (req, res) => {
   const {id} = req.params
-  const {full_name, phone_student, subject, parents_name, phone_parents} = req.body
-  if(!full_name || !phone_student || !subject || !parents_name || !phone_parents){
-    throw new BadRequestError('Please provide all the required fields')
+  const editStudent = req.body
+  if(req.fileUrl){
+    editStudent.image = req.fileUrl
   }
-  const student = await Student.findByIdAndUpdate({_id: id}, req.body, {new:true, runValidators:true})
+  const student = await Student.findByIdAndUpdate(id, editStudent, {new:true, runValidators:true})
   if(!student){
     throw new NotFoundError(`No Student with id: ${id}`)
   }

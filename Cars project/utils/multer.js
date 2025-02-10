@@ -1,4 +1,3 @@
-const { REQUEST_URI_TOO_LONG } = require("http-status-codes");
 const multer = require("multer");
 const path = require("path");
 const BaseError = require("../errors/base_error");

@@ -1,6 +1,6 @@
 const { BadRequestError, NotFoundError } = require("../errors");
 const Teacher = require("../models/Teacher");
-const FileService = require("../upload/upload_file");
+const FileService = require("../utils/upload_file");
 const { StatusCodes } = require("http-status-codes");
 
 const getAllTeachers = async (req, res) => {

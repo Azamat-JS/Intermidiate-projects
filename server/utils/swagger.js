@@ -1,15 +1,17 @@
+const swaggerJSDocs = require('swagger-jsdoc');
+
 const swaggerOptions = {
-  swaggerDefinition: {
-    openapi: "3.0.0",
+  definition: { 
+    openapi: '3.0.0',
     info: {
-      title: 'CRM panel API',
+      title: 'CRM PANEL API documentation',
       version: '1.0.0',
-      description: 'CRM panel for education centers',
+      description: 'CRM PANEL API documentation with examples',
     },
   },
-  apis: ['./routes/*.js']
+  apis: ['./routes/*.js'],
 };
 
-  const swaggerDocs = swaggerJSDoc(swaggerOptions);
+const swaggerDocs = swaggerJSDocs(swaggerOptions);
 
-  module.exports = swaggerDocs
+module.exports = swaggerDocs;

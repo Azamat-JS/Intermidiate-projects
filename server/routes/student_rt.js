@@ -41,7 +41,7 @@
 const express = require("express");
 const router = express.Router();
 const { createStudent, getAllStudents, getOneStudent, updateStudent, deleteStudent } = require("../controllers/students");
-const { studentValidate } = require("../middleware/student_validMiddle");
+const FileUploader = require('../utils/multer')
 
 /**
  * @swagger
@@ -121,7 +121,7 @@ router.get("/getOne_student/:id", getOneStudent);
  *       500:
  *         description: Internal Server Error
  */
-router.post("/students", studentValidate, createStudent);
+router.post("/students", FileUploader.singleImage, createStudent);
 
 /**
  * @swagger

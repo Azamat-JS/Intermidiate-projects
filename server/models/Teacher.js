@@ -31,7 +31,6 @@ const TeacherSchema = new mongoose.Schema(
     },
     teacher_image:{
       type:String,
-      default: "no-photo.jpg"
     }
   },
   { timestamps: true, versionKey: false }

@@ -6,6 +6,8 @@ const statistics = require('../controllers/main');
  * @swagger
  * /:
  *   get:
+ *     tags:
+ *       - Statistics
  *     summary: Fetch statistics for groups, students, teachers, and dropouts
  *     description: Returns the counts of groups, students, teachers, and dropouts.
  *     responses:
