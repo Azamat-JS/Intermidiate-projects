@@ -1,6 +1,5 @@
 const { BadRequestError, NotFoundError } = require("../errors");
 const Teacher = require("../models/Teacher");
-const FileService = require("../utils/upload_file");
 const { StatusCodes } = require("http-status-codes");
 
 const getAllTeachers = async (req, res) => {
@@ -17,16 +16,12 @@ const getOneTeacher = async (req, res) => {
   res.status(StatusCodes.OK).json(teacher);
 };
 
-const createTeacher = async (req, res) => {
-  const { teacher_name, subject, phone_teacher } = req.body;
-  const { image } = req.files;
-  const fileName = FileService.save(image);
-  const teacher = await Teacher.create({
-    teacher_name,
-    subject,
-    phone_teacher,
-    image: fileName,
-  });
+const createTeacher = async (req, res, next) => {
+  if(!req.fileUrl){
+   return next(new BadRequestError('You should provide an image'))
+  }
+  const teacher = new Teacher({...req.body, teacher_image: req.fileUrl});
+  await teacher.save()
   if (!teacher) {
     throw new BadRequestError("Please provide all the required fields");
   }
@@ -38,7 +33,11 @@ const createTeacher = async (req, res) => {
 
 const updateTeacher = async (req, res) => {
   const { id } = req.params;
-  const teacher = await Teacher.findByIdAndUpdate({ _id: id }, req.body, {
+  const editTeacher = req.body
+  if(req.fileUrl){
+    editTeacher.teacher_image = req.fileUrl
+  }
+  const teacher = await Teacher.findByIdAndUpdate(id, editTeacher, {
     new: true,
     runValidators: true,
   });

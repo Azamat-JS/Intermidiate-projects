@@ -21,13 +21,11 @@ const getOneStudent = async (req, res) => {
   res.status(StatusCodes.OK).json(student);
 };
 
-const createStudent = async (req, res) => {
+const createStudent = async (req, res, next) => {
  if(!req.fileUrl){
     return next(new BadRequestError('You should provide an image'))
  }
-    const student = new Student({...req.body, image: req.fileUrl});
-    console.log(student);
-    
+    const student = new Student({...req.body, image: req.fileUrl});    
     await student.save();
 
   res.status(201).json({
@@ -35,8 +33,6 @@ const createStudent = async (req, res) => {
       student,
     });
   }
-
-
 
 const updateStudent = async (req, res) => {
   const {id} = req.params

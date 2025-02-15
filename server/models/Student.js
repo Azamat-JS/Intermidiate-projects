@@ -18,7 +18,6 @@ const StudentSchema = new mongoose.Schema({
         },
         message: props => `${props.value} is not a valid phone number!`
     },
-    required:[true, 'Student phone number required'],
 },
 subject:{
    type:String,
@@ -43,7 +42,6 @@ parents_name:{
         },
         message: props => `${props.value} is not a valid phone number!`
     },
-    required:[true, 'Parents phone number required'],
   },
   image:{
     type:String,

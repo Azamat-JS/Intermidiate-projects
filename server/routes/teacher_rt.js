@@ -31,6 +31,7 @@
 const { Router } = require("express");
 const router = Router();
 const { getAllTeachers, getOneTeacher, createTeacher, deleteTeacher, updateTeacher } = require("../controllers/teacher_ctr");
+const FileUploader = require('../utils/multer')
 
 /**
  * @swagger
@@ -94,7 +95,7 @@ router.get("/getOne_teacher/:name", getOneTeacher);
  *                 type: string
  *               phone_teacher:
  *                 type: string
- *               teacher_image:
+ *               image:
  *                 type: string
  *                 format: binary
  *     responses:
@@ -105,7 +106,7 @@ router.get("/getOne_teacher/:name", getOneTeacher);
  *       500:
  *         description: Internal Server Error
  */
-router.post("/teachers", createTeacher);
+router.post("/teachers", FileUploader.singleImage, createTeacher);
 
 /**
  * @swagger
@@ -125,7 +126,7 @@ router.post("/teachers", createTeacher);
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
@@ -135,6 +136,9 @@ router.post("/teachers", createTeacher);
  *                 type: string
  *               phone_teacher:
  *                 type: string
+ *               image:
+ *                 type: string
+ *                 format: binary
  *     responses:
  *       200:
  *         description: Teacher updated successfully
@@ -143,7 +147,7 @@ router.post("/teachers", createTeacher);
  *       500:
  *         description: Internal Server Error
  */
-router.put("/update_teacher/:id", updateTeacher);
+router.put("/update_teacher/:id", FileUploader.singleImage, updateTeacher);
 
 /**
  * @swagger

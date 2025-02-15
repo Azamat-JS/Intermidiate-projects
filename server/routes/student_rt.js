@@ -141,9 +141,24 @@ router.post("/students", FileUploader.singleImage, createStudent);
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
- *             $ref: '#/components/schemas/Student'
+ *             type: object
+ *             properties:
+ *               full_name:
+ *                 type: string
+ *               phone_student:
+ *                 type: string
+ *               subject:
+ *                 type: string
+ *                 enum: [Mathematics, Biology, English, Physics, Chemistry]
+ *               parents_name:
+ *                 type: string
+ *               phone_parents:
+ *                 type: string
+ *               image:
+ *                 type: string
+ *                 format: binary
  *     responses:
  *       200:
  *         description: Student updated successfully
@@ -154,7 +169,7 @@ router.post("/students", FileUploader.singleImage, createStudent);
  *       500:
  *         description: Internal Server Error
  */
-router.put("/update_student/:id", updateStudent);
+router.put("/update_student/:id", FileUploader.singleImage, updateStudent);
 
 /**
  * @swagger
