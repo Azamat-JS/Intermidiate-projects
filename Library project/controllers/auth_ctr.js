@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 const BaseError = require("../errors/base_error");
 const nodemailer = require("nodemailer");
 const {createToken, refreshToken} = require('../token/generate_token')
-const mongoLog = require('../service/mongoLogger')
 
 
 const register = async (req, res, next) => {
@@ -93,7 +92,6 @@ const login = async (req, res, next) => {
     const { email, password } = req.body;
     const user = await Auth.findOne({ email });
     // ------------ logger  -------------
-    mongoLog.info(`A person whose email is ${email} tried to log in`)
     
     if (!user) {
       throw BaseError.BadRequestError("Invalid credentials");
