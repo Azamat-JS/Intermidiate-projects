@@ -1,6 +1,6 @@
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import Header from '../src/components/Header'
-import {ApolloProvider, ApolloClient, InMemoryCache, from} from '@apollo/client'
+import {ApolloProvider, ApolloClient, InMemoryCache} from '@apollo/client'
 import Home from './pages/Home'
 import NotFound from './pages/NotFound'
 import Project from './pages/Project'
