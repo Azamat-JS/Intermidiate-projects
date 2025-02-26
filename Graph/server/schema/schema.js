@@ -89,7 +89,7 @@ const mutation = new GraphQLObjectType({
         email: { type: GraphQLNonNull(GraphQLString) },
         phone: { type: GraphQLNonNull(GraphQLString) },
       },
-      resolve(paren, args) {
+      resolve(parent, args) {
         const client = new Client({
           name: args.name,
           email: args.email,
@@ -105,10 +105,12 @@ const mutation = new GraphQLObjectType({
       args: {
         id: { type: GraphQLNonNull(GraphQLID) },
       },
-      resolve(parent, args) {
-        return Client.findByIdAndDelete(args.id);
+      async resolve(parent, args) {
+        await Project.deleteMany({ clientId: args.id }); // Delete related projects
+        return Client.findByIdAndDelete(args.id);       // Delete client
       },
     },
+    
 
     // Update client
     updateClient: {
