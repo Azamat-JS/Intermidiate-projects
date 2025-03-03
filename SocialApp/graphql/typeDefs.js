@@ -6,6 +6,8 @@ type Post {
     body: String!
     username:String!
     createdAt:String!
+    comments: [Comment]!
+    likes: [Like]!
 }
 type User {
     id: ID!
@@ -13,8 +15,6 @@ type User {
     email: String!
     token: String!
     createdAt:String!
-    comments:[Comment]!
-    likes:[Like]!
 }
 
 type Comment{
