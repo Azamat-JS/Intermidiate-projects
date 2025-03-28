@@ -1,5 +1,0 @@
-class authController {
-    getAll(){
-        
-    }
-}

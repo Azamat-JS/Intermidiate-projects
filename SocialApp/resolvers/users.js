@@ -2,8 +2,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { UserInputError, ValidationError } = require("apollo-server");
 const {validateRegisterInput, validateLoginInput} = require('../util/validators')
-
 const User = require("../models/User");
+
 function generateToken(user){
     return jwt.sign(
         {
@@ -38,7 +38,7 @@ module.exports = {
      }
 
      const token = generateToken(user)
-
+     
      return {
         ...user._doc,
         id: user._id,
@@ -56,7 +56,7 @@ module.exports = {
         throw new UserInputError('Errors', {errors})
        }
 
-      const existingUser = await User.findOne({ username });
+      const existingUser = await User.findOne({ username: username.toLowerCase() }).lean();
       if (existingUser) {
         throw new UserInputError("Username is already taken", {
           errors: {
@@ -75,7 +75,7 @@ module.exports = {
 
       const newUser = new User({
         email,
-        username,
+        username: username.toLowerCase(),
         password,
         createdAt: new Date().toISOString(),
       });

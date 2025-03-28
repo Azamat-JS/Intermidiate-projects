@@ -5,9 +5,9 @@ type Post {
     id: ID!
     body: String!
     username:String!
-    createdAt:String!
     comments: [Comment]!
     likes: [Like]!
+    createdAt:String!
 }
 type User {
     id: ID!
@@ -19,15 +19,15 @@ type User {
 
 type Comment{
     id: ID!
-    createdAt:String!
     username:String!
     body: String!
+    createdAt:String!
 }
 
 type Like{
     id:ID!
-    createdAt:String!
     username:String!
+    createdAt:String!
 }
 
 input RegisterInput {
