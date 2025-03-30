@@ -1,6 +1,7 @@
+const { subscribe } = require('graphql');
 const Post = require('../models/Post')
 const checkAuth = require('../util/checkAuth')
-const {AuthenticationError}= require('apollo-server')
+const {AuthenticationError, UserInputError}= require('apollo-server')
 
  module.exports = { Query: {
        async getPosts(){
@@ -8,7 +9,8 @@ const {AuthenticationError}= require('apollo-server')
                 const posts = await Post.find().sort({createdAt: -1});
                 return posts
             } catch (error) {
-                throw new Error(error)
+              console.error(`[ERROR] ${error.message}`, error)
+              throw new Error('Something went wrong, please try again later')
             }
         },
 
@@ -21,7 +23,8 @@ const {AuthenticationError}= require('apollo-server')
                 throw new Error('Post not found')
             }
            } catch (error) {
-            throw new Error(error)
+            console.error(`[ERROR] ${error.message}`, error)
+            throw new Error('Something went wrong, please try again later')
            }
         }
     },
@@ -36,6 +39,10 @@ const {AuthenticationError}= require('apollo-server')
             createdAt: new Date().toISOString()
          });
          const post = await newPost.save()
+
+         context.pubsub.publish('NEW_POST', {
+          newPost:post
+         })
          return post;
        },
 
@@ -50,7 +57,8 @@ const {AuthenticationError}= require('apollo-server')
                 throw new AuthenticationError('Action not allowed')
             }
           } catch (error) {
-            throw new Error(error)
+            console.error(`[ERROR] ${error.message}`, error)
+            throw new Error('Something went wrong, please try again later')
           }
        },
 
@@ -61,7 +69,7 @@ const {AuthenticationError}= require('apollo-server')
         if(post){
           if(post.likes.find(like => like.username === username)){
             // Post already like, unlike it
-            post.likes = post.likes.filter((like => like.username !== username))
+            post.likes = post.likes.filter(like => like.username !== username)
           }else{
             // not liked, like post
            post.likes.push({
@@ -71,7 +79,14 @@ const {AuthenticationError}= require('apollo-server')
           }
           await post.save()
           return post;
-        }
+        }else throw new UserInputError('Post not found');
        }
+    },
+    
+    Subscription: {
+      newPost:{
+        subscribe: (_, __, {pubsub}) => pubsub.asyncIterator('NEW_POST')
+      }
     }
+
 }
