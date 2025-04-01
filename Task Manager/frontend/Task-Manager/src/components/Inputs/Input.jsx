@@ -23,13 +23,13 @@ export default function Input({value, onChange, label, placeholder, type}) {
             {showPassword ? (
                 <FaRegEye
                 size={22}
-                className=''
+                className='text-primary cursor-pointer'
                 onClick={() => toggleShowPassoword()}
                 />
             ) : (
                 <FaRegEyeSlash 
                 size={22}
-                className=''
+                className='text-slate-400 cursor-pointer'
                 onClick={() => toggleShowPassoword()}
                 />
             )}
