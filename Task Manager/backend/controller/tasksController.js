@@ -10,7 +10,7 @@ const getTasks = async (req, res) => {
     }
     let tasks;
 
-    if (req.user.role === "admin") {
+    if (req.user?.role === "admin") {
       tasks = await Task.find(filter).populate(
         "assignedTo",
         "name, email, profileImageUrl"
@@ -130,11 +130,15 @@ const updateTask = async (req, res) => {
       task.assignedTo = req.body.assignedTo;
     }
 
-    const updateTask = await task.save();
+    const updatedTask = await task.save();
+    
+    return res.status(200).json(updatedTask);
+
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
 
 const deleteTask = async (req, res) => {
   try {
@@ -237,10 +241,11 @@ const getDashboardData = async (req, res) => {
         },
       },
     ]);
-    const taskDistribution = taskStatuses.reduce((acc, status) => {
+    let taskDistribution = {}; 
+    taskDistribution = taskStatuses.reduce((acc, status) => {
       const formattedKey = status.replace(/\s+/g, "");
       acc[formattedKey] =
-        taskDistribution.find((item) => item._id === status)?.count || 0;
+        taskDistributionRaw.find((item) => item._id === status)?.count || 0;
       return acc;
     }, {});
     taskDistribution["All"] = totalTasks; // Add total count to taskDistribution
@@ -255,7 +260,8 @@ const getDashboardData = async (req, res) => {
         },
       },
     ]);
-    const taskPriorityLevels = taskPriorities.reduce((acc, priority) => {
+    let taskPriorityLevels = {};
+    taskPriorityLevels = taskPriorities.reduce((acc, priority) => {
       acc[priority] =
         taskPriorityLevelsRaw.find((item) => item._id === priority)?.count || 0;
       return acc;
