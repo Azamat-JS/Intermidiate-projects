@@ -10,6 +10,9 @@ import { addThousandsSeparator } from '../../utils/helper';
 import InfoCard from '../../components/Cards/InfoCard';
 import { LuArrowRight } from 'react-icons/lu';
 import TaskListTable from '../../components/TaskListTable';
+import CustomPieChart from '../../components/Charts/CustomPieChart';
+
+const COLORS = ["#8051FF", "#0088DB", "#7BCE00"];
 
 export default function Dashboard() {
   useUserAuth();
@@ -52,7 +55,7 @@ export default function Dashboard() {
       );
       if(response.data){
         setDashboardData(response.data);
-        prepareChartData(response.data?.charts)
+        prepareChartData(response.data?.charts || null)
       }
     } catch (error) {
       console.error("Error fetching users:", error)
@@ -67,7 +70,7 @@ export default function Dashboard() {
     getDashboardData();
   }, []);
 
-  return <DashboardLayout activeMenu="Dashboard">
+  return <DashboardLayout activeMenu="AdminDashboard">
    <div className='card my-5'>
     <div>
       <div className='col-span-3'>
@@ -77,6 +80,8 @@ export default function Dashboard() {
         </p>
       </div>
     </div>
+
+
 
     <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mt-5'>
       <InfoCard
@@ -110,6 +115,20 @@ export default function Dashboard() {
     </div>
    </div>
    <div className='grid grid-cols-1 md:grid-cols-2 gap-6 my-4 md:my-6'>
+
+   <div>
+    <div className="card">
+      <div className="flex items-center justify-between">
+        <h5 className="font-medium">Task Distribution</h5>
+      </div>
+
+       <CustomPieChart 
+        data={pieChartData}
+        colors={COLORS} 
+      />
+    </div>
+   </div>
+
     <div className='md:col-span-2'>
       <div className="card">
         <div className="flex items-center justify-between">

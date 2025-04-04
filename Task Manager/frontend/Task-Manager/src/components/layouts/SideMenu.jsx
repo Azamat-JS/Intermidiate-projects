@@ -33,7 +33,7 @@ export default function SideMenu({activeMenu}) {
     <div className='flex flex-col items-center justify-center mb-7 pt-5'>
         <div className='relative'>
             <img 
-              src={user?.profileImageUrl || "profile image"}
+              src={user?.profileImageUrl}
               alt="Profile Image"
               className='w-20 h-20 bg-slate-400 rounded-full' />
         </div>

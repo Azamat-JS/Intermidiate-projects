@@ -2,9 +2,7 @@ import React, { useContext, useState } from 'react'
 import Authlayout from '../../components/layouts/Authlayout'
 import ProfilePhotoSelector from '../../components/Inputs/ProfilePhotoSelector';
 import Input from '../../components/Inputs/Input';
-import { LuTarget } from 'react-icons/lu';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 import axiosInstance from '../../utils/axiosInstance';
 import { API_PATHS } from '../../utils/apiPaths';
 import { UserContext } from '../../context/userContext';
