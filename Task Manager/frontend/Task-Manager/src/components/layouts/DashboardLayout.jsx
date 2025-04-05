@@ -4,20 +4,21 @@ import Navbar from './Navbar';
 import SideMenu from './SideMenu';
 
 export default function DashboardLayout({children, activeMenu}) {
-    const {user} = useContext(UserContext);
-  return (
-    <div className=''>
-        <Navbar activeMenu={activeMenu} />
+    const {user, loading} = useContext(UserContext);
 
-        {user && (
-            <div className='flex'>
-                <div className='nax-[1000px]:hidden'>
-                    <SideMenu activeMenu={activeMenu} />
-                </div>
+    if (loading) return <div>Loading...</div>;
 
-                <div className='grow mx=5'>{children}</div>
-            </div>
-        )}
-    </div>
-  )
+    if (!user) return <div>Not authorized</div>;
+
+    return (
+      <div className=''>
+          <Navbar activeMenu={activeMenu} />
+          <div className='flex'>
+              <div className='max-[1000px]:hidden'>
+                  <SideMenu activeMenu={activeMenu} />
+              </div>
+              <div className='grow mx-5'>{children}</div>
+          </div>
+      </div>
+    )
 }
