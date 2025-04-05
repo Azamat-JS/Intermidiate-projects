@@ -153,27 +153,38 @@ const deleteTask = async (req, res) => {
 const updateTaskStatus = async (req, res) => {
   try {
     const task = await Task.findById(req.params.id);
-    if (!task) return res.status(404).json({ message: "Task not found" });
+    if (!task) {
+      return res.status(404).json({ message: "Task not found" });
+    }
 
-    const isAssigned = task.assignedTo.some(
+    // Ensure assignedTo exists before using some()
+    const isAssigned = Array.isArray(task.assignedTo) && task.assignedTo.some(
       (userId) => userId.toString() === req.user._id.toString()
     );
 
     if (!isAssigned && req.user.role !== "admin") {
       return res.status(403).json({ message: "Not authorized" });
     }
+
     task.status = req.body.status || task.status;
 
     if (task.status === "Completed") {
-      task.todoChecklist.forEach((element) => {
-        element.completed = true;
-      });
+      if (Array.isArray(task.todoChecklist)) {
+        task.todoChecklist.forEach((element) => {
+          element.completed = true;
+        });
+      }
       task.progress = 100;
     }
+
     await task.save();
     res.status(200).json({ message: "Task status updated", task });
-  } catch (error) {}
+  } catch (error) {
+    console.error("Error updating task status:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
 };
+
 
 const updateTodoChecklist = async (req, res) => {
   try {
