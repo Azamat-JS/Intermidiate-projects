@@ -9,6 +9,7 @@ import moment from 'moment'
 import { LuTarget, LuTrash2 } from "react-icons/lu";
 import SelectDropDown from "../../components/Inputs/SelectDropDown";
 import SelectUsers from "../../components/Inputs/SelectUsers";
+import TodoListInput from "../../components/Inputs/TodoListInput";
 
 
 
@@ -22,7 +23,7 @@ export default function CreateTask() {
     title: "",
     description: "",
     priority: "Low",
-    dueDate: null,
+    dueDate: "",
     assignedTo: [],
     todoChecklist: [],
     attachments: [],
@@ -45,7 +46,7 @@ export default function CreateTask() {
       title: "",
       description: "",
       priority: "Low",
-      dueDate: null,
+      dueDate: "",
       assignedTo: [],
       todoChecklist: [],
       attachments: []
@@ -108,7 +109,7 @@ const updateTask = async () => {
             className="form-input"
             rows={4}
             value={taskData.description}
-            onChange={({targer}) => handleValueChange("description", target.value)}
+            onChange={({target}) => handleValueChange("description", target.value)}
             ></textarea>
           </div>
 
@@ -151,6 +152,19 @@ const updateTask = async () => {
               }}
               />
             </div>
+          </div>
+
+          <div className="">
+            <label className="">
+              TODO Checklist
+            </label>
+
+            <TodoListInput
+              todoList={taskData?.todoChecklist}
+              setTodoList={(value) => 
+                handleValueChange("todoCheckList", value)
+              }
+            />
           </div>
         </div>
       </div>
