@@ -10,6 +10,7 @@ import { LuTarget, LuTrash2 } from "react-icons/lu";
 import SelectDropDown from "../../components/Inputs/SelectDropDown";
 import SelectUsers from "../../components/Inputs/SelectUsers";
 import TodoListInput from "../../components/Inputs/TodoListInput";
+import AddAttachmentsInput from "../../components/Inputs/AddAttachmentsInput";
 
 
 
@@ -154,16 +155,24 @@ const updateTask = async () => {
             </div>
           </div>
 
-          <div className="">
-            <label className="">
+          <div className="mt-3">
+            <label className="text-xs font-medium text-slate-600">
               TODO Checklist
             </label>
 
             <TodoListInput
-              todoList={taskData?.todoChecklist}
-              setTodoList={(value) => 
-                handleValueChange("todoCheckList", value)
-              }
+              todoList={taskData?.todoChecklist || []}
+              setTodoList={(value) => handleValueChange("todoCheckList", value)}
+            />
+          </div>
+
+          <div className="mt-3">
+            <label className="text-xs font-medium text-slate-600">Add attachments</label>
+            <AddAttachmentsInput
+            attachments={taskData.attachments}
+            setAttachments={(value) => {
+              handleValueChange("attachments", value)
+            }}
             />
           </div>
         </div>
