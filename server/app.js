@@ -13,7 +13,7 @@ const teacherRouter = require('./routes/teacher_rt');
 const paymentRouter = require('./routes/payment_rt');
 const appealRouter = require('./routes/appeals_rt')
 const swaggerUi = require('swagger-ui-express')
-const swaggerDocs = require("./utils/swagger")
+const swaggerDocs = require("./utils/swagger");
 
 // Middleware
 app.use(express.json());
